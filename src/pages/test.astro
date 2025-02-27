@@ -1,0 +1,78 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout>
+  <main class="container mx-auto p-6">
+    <h1 class="text-3xl font-bold">New Page</h1>
+    <p class="mt-4">This is a new page created in your Astro project.</p>
+  </main>
+</Layout>
+<script>
+  import {
+  Router,
+  Token,
+  CurrencyAmount,
+  TradeType,
+  Networks,
+} from "soroswap-router-sdk";
+
+const XLM_ADDRESS = "CAS3J7GYLGXMF6TDJBBYYSE3HQ6BBSMLNUQ34T6TZMYMW2EVH34XOWMA";
+const USDC_ADDRESS = "CCW67TSZV3SSS2HXMBQ5JFGCKJNXKZM7UQUWUZPUTHXSTZLEO7SJMI75";
+const AQUA_ADDRESS = "CAUIKL3IYGMERDRUN6YSCLWVAKIFG5Q4YJHUKM4S4NJZQIA3BAS6OJPK";
+
+const XLM_TOKEN = new Token(
+  Networks.PUBLIC,
+  XLM_ADDRESS,
+  7,
+  "XLM",
+  "Stellar Lumens"
+);
+
+const USDC_TOKEN = new Token(
+  Networks.PUBLIC,
+  USDC_ADDRESS,
+  7,
+  "USDC",
+  "USD Coin"
+);
+
+const AQUA_TOKEN = new Token(
+  Networks.PUBLIC,
+  AQUA_ADDRESS,
+  7,
+  "AQUA",
+  "AQUA tokens"    
+);
+
+console.log(XLM_TOKEN);
+console.log(USDC_TOKEN);
+console.log(AQUA_TOKEN);
+
+const amount = 1;
+
+const router = new Router({
+  pairsCacheInSeconds: 20, // pairs cache duration
+//   protocols: [Protocol.SOROSWAP], // protocols to be used
+  network: Networks.PUBLIC, // network to be used
+});
+
+const currencyAmount = CurrencyAmount.fromRawAmount(AQUA_TOKEN, amount);
+const quoteCurrency = USDC_TOKEN;
+
+try {
+  const route = await router.route(
+    currencyAmount,
+    quoteCurrency,
+    TradeType.EXACT_INPUT
+  );
+
+  if (route) {
+    console.log(route.trade.path);
+  } else {
+    console.error("No route found for:", currencyAmount, "to", quoteCurrency);
+  }
+} catch (error) {
+  console.error("Error fetching route:", error);
+}
+</script>

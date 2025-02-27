@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+.response-section {
+    overflow-wrap: break-word; 
+}
+.small-code {
+    font-size: 0.8em; /* Adjust the size as needed */
+}

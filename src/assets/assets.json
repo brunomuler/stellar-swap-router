@@ -1,0 +1,542 @@
+[
+    {
+        "assetCode": "XLM",
+        "issuer": "stellar.org",
+        "homeDomain": "native",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmNcfZxs8e9uVyhEa3xoPWCsj3ZogGirtixMEC9Km4Fjm2"
+    },
+    {
+        "assetCode": "USDC",
+        "issuer": "centre.io",
+        "homeDomain": "GA5ZSEJYB37JRC5AVCIA5MOP4RHTM335X2KGX3IHOJAPP5RE34K4KZVN",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmNcfZxs8e9uVyhEa3xoPWCsj3ZogGirtixMEC9Km4Fjm2"
+    },
+    {
+        "assetCode": "BLND",
+        "issuer": "",
+        "homeDomain": "GDJEHTBE6ZHUXSWFI642DCGLUOECLHPF3KSXHPXTSTJ7E3JF6MQ5EZYY",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmNcfZxs8e9uVyhEa3xoPWCsj3ZogGirtixMEC9Km4Fjm2"
+    },
+    {
+        "assetCode": "yXLM",
+        "issuer": "ultracapital.xyz",
+        "homeDomain": "GARDNV3Q7YGT4AKSDF25LT32YSCCW4EV22Y2TV3I2PU2MMXJTEDL5T55",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmSTXU2wn1USnmd5ZypA5zMze259wEPSDP3i8wivyr9qiq"
+    },
+    {
+        "assetCode": "SSLX",
+        "issuer": "sslx.sl8.online",
+        "homeDomain": "GBHFGY3ZNEJWLNO4LBUKLYOCEK4V7ENEBJGPRHHX7JU47GWHBREH37UR",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmYkosLbMRMPZSiRZBUuCBaGRbaxiuxPmXeFfs6QYeSWCY"
+    },
+    {
+        "assetCode": "yUSDC",
+        "issuer": "ultracapital.xyz",
+        "homeDomain": "GDGTVWSM4MGS4T7Z6W4RPWOCHE2I6RDFCIFZGS3DOA63LWQTRNZNTTFF",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmTmcN7qNDkcfaawoJCUv31aWjwT75KjKAX4zC7JFrE2Xr"
+    },
+    {
+        "assetCode": "AQUA",
+        "issuer": "aqua.network",
+        "homeDomain": "GBNZILSTVQZ4R7IKQDGHYGY2QXL5QOFJYQMXPKWRRM5PAV7Y4M67AQUA",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmTqE6DhQftp51YXXL8HtkEBhr1PpW6F8W1NxnVoyK6G93"
+    },
+    {
+        "assetCode": "XRP",
+        "issuer": "fchain.io",
+        "homeDomain": "GBXRPL45NPHCVMFFAYZVUVFFVKSIZ362ZXFP7I2ETNQ3QKZMFLPRDTD5",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmPYsJjR623oATjwfLtnqW4BEDAgBsnMktjXcLC2pfNiEm"
+    },
+    {
+        "assetCode": "BTCLN",
+        "issuer": "kbtrading.org",
+        "homeDomain": "GDPKQ2TSNJOFSEE7XSUXPWRP27H6GFGLWD7JCHNEYYWQVGFA543EVBVT",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmVrLfcrZ5L2NeWoeTqDjpoTw9C86C5GHzNxXHXovo3Ztq"
+    },
+    {
+        "assetCode": "BTC",
+        "issuer": "ultracapital.xyz",
+        "homeDomain": "GDPJALI4AZKUU2W426U5WKMAT6CN3AJRPIIRYR2YM54TL2GDWO5O2MZM",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmUjsGiNcUFTbiKoMZyBtgkSwfndBXSbRKFpGrYKvHC1fX"
+    },
+    {
+        "assetCode": "ETH",
+        "issuer": "ultracapital.xyz",
+        "homeDomain": "GBFXOHVAS43OIWNIO7XLRJAHT3BICFEIKOJLZVXNT572MISM4CMGSOCC",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/Qmdu8ywKeXkkGWE1EoUxwuGUZRaDs2rG9ZsV8d6F4NLMxQ"
+    },
+    {
+        "assetCode": "IDRT",
+        "issuer": "kbtrading.org",
+        "homeDomain": "GDPKQ2TSNJOFSEE7XSUXPWRP27H6GFGLWD7JCHNEYYWQVGFA543EVBVT",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/Qme7voiVGkuBJRR2ZMSWFdrfJ94tqGH8tLBaCHk8BaUxhn"
+    },
+    {
+        "assetCode": "SHX",
+        "issuer": "stronghold.co",
+        "homeDomain": "GDSTRSHXHGJ7ZIVRBXEYE5Q74XUVCUSEKEBR7UCHEUUEK72N7I7KJ6JH",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmX2Jn7gzyL27vP6hWrDTpwFeLcuUz7jcLK2ovhMrUAQVp"
+    },
+    {
+        "assetCode": "BRL",
+        "issuer": "ntokens.com",
+        "homeDomain": "GDVKY2GU2DRXWTBEYJJWSFXIGBZV6AZNBVVSUHEPZI54LIS6BA7DVVSP",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/Qmdz4nG4DpdQxjmdqLUM34VPdvU797gLekDr3oiX4ZqMeP"
+    },
+    {
+        "assetCode": "yBTC",
+        "issuer": "ultracapital.xyz",
+        "homeDomain": "GBUVRNH4RW4VLHP4C5MOF46RRIRZLAVHYGX45MVSTKA2F6TMR7E7L6NW",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmT8LZrzaxnxAKgANZhUcK43SahGjkKaZ37vEGp3qs5X1R"
+    },
+    {
+        "assetCode": "XCHF",
+        "issuer": "kbtrading.org",
+        "homeDomain": "GDPKQ2TSNJOFSEE7XSUXPWRP27H6GFGLWD7JCHNEYYWQVGFA543EVBVT",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmfUfypiaSegTjHTzWGPUGfhBFCvWsnGEkaDmfQdWyXmXi"
+    },
+    {
+        "assetCode": "SCOP",
+        "issuer": "scopuly.com",
+        "homeDomain": "GC6OYQJIZF3HFXCYPFCBXYXNGIBQ4TNSFUBUXQJOZWIP6F3YZK4QH3VQ",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmXUQsnLxb5PA7iPby2JnP23mCHSbXxf7Kr5QdfmhYzaDQ"
+    },
+    {
+        "assetCode": "ARS",
+        "issuer": "api.anclap.com",
+        "homeDomain": "GCYE7C77EB5AWAA25R5XMWNI2EDOKTTFTTPZKM2SR5DI4B4WFD52DARS",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmRGEnqdULKdDc6X3Qa7E216ZTitvnwEZ4zkASP8jik4uK"
+    },
+    {
+        "assetCode": "FIDR",
+        "issuer": "fixedidr.com",
+        "homeDomain": "GBZQNUAGO4DZFWOHJ3PVXZKZ2LTSOVAMCTVM46OEMWNWTED4DFS3NAYH",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmQCvzWgWGABWpDpnjW8VUuAgpi2wsjTjE3diUrPssEJys"
+    },
+    {
+        "assetCode": "EURMTL",
+        "issuer": "mtl.montelibero.org",
+        "homeDomain": "GACKTN5DAZGWXRWB2WLM6OPBDHAMT6SJNGLJZPQMEZBUR4JUGBX2UK7V",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmPVfGsrsTuQbD3q9SN8ZcrzrsByrpY5tJ6p6rPqpDG2dQ"
+    },
+    {
+        "assetCode": "EURC",
+        "issuer": "mykobo.co",
+        "homeDomain": "GAQRF3UGHBT6JYQZ7YSUYCIYWAF4T2SAA5237Q5LIQYJOHHFAWDXZ7NM",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmVMhyjyTimsfHkzwMZfxz3P1zYmwtumCpVkaTBdstb4u1"
+    },
+    {
+        "assetCode": "XRP",
+        "issuer": "stellarport.io",
+        "homeDomain": "GBVOL67TMUQBGL4TZYNMY3ZQ5WGQYFPFD5VJRWXR72VA33VFNL225PL5",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmXb1fhnhzoni3PyYwAPmT2ZbjE5xJptxuRU8H5NjrDGPR"
+    },
+    {
+        "assetCode": "BTC",
+        "issuer": "stellarport.io",
+        "homeDomain": "GBVOL67TMUQBGL4TZYNMY3ZQ5WGQYFPFD5VJRWXR72VA33VFNL225PL5",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmZ1BjXaPBiiqD4tdMWdk5Gm5W456ULmPkyPaPMVPmewpS"
+    },
+    {
+        "assetCode": "USD",
+        "issuer": "stablecoin.anchorusd.com",
+        "homeDomain": "GDUKMGUGDZQK6YHYA5Z6AY2G4XDSZPSZ3SW5UN3ARVMO6QSRDWP5YLEX",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmS1GJpv1T2JwiBaXKDyNLP55NQJN8GAfgdEMdSP7ByWuf"
+    },
+    {
+        "assetCode": "XXA",
+        "issuer": "ixinium.io",
+        "homeDomain": "GC4HS4CQCZULIOTGLLPGRAAMSBDLFRR6Y7HCUQG66LNQDISXKIXXADIM",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmZauxoyfmHVomV6DC3KHTwNws6LTskJDbZUG6THVzeCvE"
+    },
+    {
+        "assetCode": "yETH",
+        "issuer": "ultracapital.xyz",
+        "homeDomain": "GDYQNEF2UWTK4L6HITMT53MZ6F5QWO3Q4UVE6SCGC4OMEQIZQQDERQFD",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmavC22bVfCkzHX2AJQZAh6Vbw83JtKDZhKZFUcktomdQn"
+    },
+    {
+        "assetCode": "CLPX",
+        "issuer": "clpx.finance",
+        "homeDomain": "GDYSPBVZHPQTYMGSYNOHRZQNLB3ZWFVQ2F7EP7YBOLRGD42XIC3QUX5G",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmPnLPffNmgoACztbEH8Hf7FCSMwyVdaoJni1UmrVkixJB"
+    },
+    {
+        "assetCode": "MTL",
+        "issuer": "mtl.montelibero.org",
+        "homeDomain": "GACKTN5DAZGWXRWB2WLM6OPBDHAMT6SJNGLJZPQMEZBUR4JUGBX2UK7V",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmNwTv3bi45JQrMQHfSKWK3WF4W7cF4QgRtShfWpfqHC75"
+    },
+    {
+        "assetCode": "NGNT",
+        "issuer": "cowrie.exchange",
+        "homeDomain": "GAWODAROMJ33V5YDFY3NPYTHVYQG7MJXVJ2ND3AOGIHYRWINES6ACCPD",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmTa5s8qxAFMGyiHBtGGMTDd3E3uQaex4ajtUB6536JYbR"
+    },
+    {
+        "assetCode": "LSP",
+        "issuer": "lumenswap.io",
+        "homeDomain": "GAB7STHVD5BDH3EEYXPI3OM7PCS4V443PYB5FNT6CFGJVPDLMKDM24WK",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmUxVdZomJzT5AQpS9iCuV2h9DTWhy4mh9naMghiHnXRSv"
+    },
+    {
+        "assetCode": "ZARZ",
+        "issuer": "mint.zeam.money",
+        "homeDomain": "GAROH4EV3WVVTRQKEY43GZK3XSRBEYETRVZ7SVG5LHWOAANSMCTJBB3U",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmNpETsegyBpKB7B5kPBbKhDEdbfvjJwAf6KbpjmWDwi7D"
+    },
+    {
+        "assetCode": "ETH",
+        "issuer": "stellarport.io",
+        "homeDomain": "GBVOL67TMUQBGL4TZYNMY3ZQ5WGQYFPFD5VJRWXR72VA33VFNL225PL5",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmTHDNfvxQNyzmMfgPjRFTXfE9RniWFvNuBnU9dpuR9cWz"
+    },
+    {
+        "assetCode": "TZS",
+        "issuer": "connect.clickpesa.com",
+        "homeDomain": "GA2MSSZKJOU6RNL3EJKH3S5TB5CDYTFQFWRYFGUJVIN5I6AOIRTLUHTO",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmYjpDbMRGCPGauvM6PWF2DbdayYZpHqopJ4SmXXbmg5nC"
+    },
+    {
+        "assetCode": "TFT",
+        "issuer": "threefold.io",
+        "homeDomain": "GBOVQKJYHXRR3DX6NOX2RRYFRCUMSADGDESTDNBDS6CDVLGVESRTAC47",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/Qmb1bNmAaXCmTWPqE9s1QUg1jmpkkoyzakzdFQUpRLyB2z"
+    },
+    {
+        "assetCode": "PEN",
+        "issuer": "api.anclap.com",
+        "homeDomain": "GA4TDPNUCZPTOHB3TKUYMDCRVATXKEADH7ZEYEBWJKQKE2UBFCYNBPEN",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmdDUupGoc9dBh1U87N34evGxsdBaCGJEvqJo2JcPjTG8w"
+    },
+    {
+        "assetCode": "XTAR",
+        "issuer": "dogstarcoin.com",
+        "homeDomain": "GAORYJ3KBDGIM7FFSKVUJHJ5NEFWIRDIAGGBJBJS7TY6ECZS53257IG4",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmVWgZkt7q9d1JWphqrBe7XTSQfgrJks9Y4joyB94w1RL7"
+    },
+    {
+        "assetCode": "BTC",
+        "issuer": "dead.apay.io",
+        "homeDomain": "GAUTUYY2THLF7SGITDFMXJVYH3LHDSMGEAKSBU267M2K7A3W543CKUEF",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmaLi9tq9XZvzVMGg7ezR2Pk46VAgdFXDFtPwNtQmfD6WZ"
+    },
+    {
+        "assetCode": "RIO",
+        "issuer": "realio.fund",
+        "homeDomain": "GBNLJIYH34UWO5YZFA3A3HD3N76R6DOI33N4JONUOHEEYZYCAYTEJ5AK",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmcFrciJP4GdxsVhYTL7DSVsD3C2H2bUj8hNAGRomFB8j9"
+    },
+    {
+        "assetCode": "KES",
+        "issuer": "connect.clickpesa.com",
+        "homeDomain": "GA2MSSZKJOU6RNL3EJKH3S5TB5CDYTFQFWRYFGUJVIN5I6AOIRTLUHTO",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmYjpDbMRGCPGauvM6PWF2DbdayYZpHqopJ4SmXXbmg5nC"
+    },
+    {
+        "assetCode": "iFIDR",
+        "issuer": "fixedidr.com",
+        "homeDomain": "GBVVM7ZYANANRP3DWVRANRDUU4M7J5W77EDTSZFD62LQ7SOHJD5IFIDR",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmdbQ2WfRPjJtmMUs6hCWN21oc8Yzqf4osxsHMaBjfy4F6"
+    },
+    {
+        "assetCode": "USDM",
+        "issuer": "mtl.montelibero.org",
+        "homeDomain": "GDHDC4GBNPMENZAOBB4NCQ25TGZPDRK6ZGWUGSI22TVFATOLRPSUUSDM",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmcJSKfJDBXTxy83kQMCMqfDKqAZMrJhqWwdob6nZDpfSC"
+    },
+    {
+        "assetCode": "FRED",
+        "issuer": "fredenergy.org",
+        "homeDomain": "GCA73U2PZFWAXJSNVMEVPNPPJCZGETWPWZC6E4DJAIWP3ZW3BAGYZLV6",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmZghb6aFkhNNEzrZNErh3RSeUXMCHNYFxhLgfWUov3t3h"
+    },
+    {
+        "assetCode": "SDEXEX",
+        "issuer": "sdexexplorer.com",
+        "homeDomain": "GBQHMDRWV3WU5YACBUUCBY4Y6PPWBJXW5WCSG5XJ63FC4HXJNGXYFD5J",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmPQ1EWMMHvEbTyABUi21DqJw8VznFu5ZtqYydLLZQ36tA"
+    },
+    {
+        "assetCode": "UAF",
+        "issuer": "uaf.sl8.online",
+        "homeDomain": "GDT5EUZMXIABSKZAQA4HNTWYOJI2D64DATP6KNVTV4WDZJ3K7FZDRC5E",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmfCyBAZWLRFHkoJ1j6mx12yfc96v4e2aW7fjfopC5f9Rw"
+    },
+    {
+        "assetCode": "NLT",
+        "issuer": "nolimitstellar.com",
+        "homeDomain": "GAX25ZVO4JVPEDK3R7EUFCGVI5XCOQGMVGQNZVFLGY2RWTBIQBW2ZNLT",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmVQ25itsx2VtGmYuTfgZXXu6upPwQRzLrTbuoKRthQmtn"
+    },
+    {
+        "assetCode": "BGI",
+        "issuer": "biggenie.net",
+        "homeDomain": "GA4FVJQFHQV5PAYYEYXML7G5JFWAA6TOQS5FH7ADS4Q2QEHKEEA3PCKX",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmcM4mA4aUQJ1QyFZqZzgu3zWJgt6xgM71P8gCe9zJiZsR"
+    },
+    {
+        "assetCode": "LTC",
+        "issuer": "stellarport.io",
+        "homeDomain": "GBVOL67TMUQBGL4TZYNMY3ZQ5WGQYFPFD5VJRWXR72VA33VFNL225PL5",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmbSTEvAoqB5BvxAfr7kZQXF7BPq7UZZmtedg2aeGGRaCU"
+    },
+    {
+        "assetCode": "GOLD",
+        "issuer": "mintx.co",
+        "homeDomain": "GBC5ZGK6MQU3XG5Y72SXPA7P5R5NHYT2475SNEJB2U3EQ6J56QLVGOLD",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmPaRSy98UJGsjXS47oLwScM6AkRjFJLgZSYebXjF3Spth"
+    },
+    {
+        "assetCode": "BEER",
+        "issuer": "beer.stellarmint.io",
+        "homeDomain": "GBL2VH6MT5QGTNQ7P725U2U6HI4MXEAKDCX3NO7OHAM2B6JNZSXLSHNN",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmeinwwJJcRec5gWs7zkq1WabQei6dqCpUFGfmEpuzveTh"
+    },
+    {
+        "assetCode": "BRAVE",
+        "issuer": "brave-token.age-shield.com",
+        "homeDomain": "GDREF4TAC3RFYVLHEV24CXN2VBGCEEP74BZOC3T4Q4XJ6SXJFMDPNTJL",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmexM1WSCNGGhMstnUvhTQcJx93Hy1MySTXTq6PNaPVfdH"
+    },
+    {
+        "assetCode": "Apay",
+        "issuer": "authenticpayment.stellarmint.io",
+        "homeDomain": "GBDKPRMOLDHTVUFTQATMMFUBKRI372YPUTOSEH5SZAFRAAVADTUGSSMA",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmYCk46ev5JvcGwtZVJGavFoGfADd4zktHZVncRmJwyeHP"
+    },
+    {
+        "assetCode": "NGNC",
+        "issuer": "ngnc.online",
+        "homeDomain": "GASBV6W7GGED66MXEVC7YZHTWWYMSVYEY35USF2HJZBLABLYIFQGXZY6",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmWcALoB3itEx487drMWRjseqKR837NLhSsQcMAGBVeBxt"
+    },
+    {
+        "assetCode": "UAF",
+        "issuer": "uaf.sl8.online",
+        "homeDomain": "GDT5EUZMXIABSKZAQA4HNTWYOJI2D64DATP6KNVTV4WDZJ3K7FZDRC5E",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmfCyBAZWLRFHkoJ1j6mx12yfc96v4e2aW7fjfopC5f9Rw"
+    },
+    {
+        "assetCode": "ACT",
+        "issuer": "authentic-payment.com",
+        "homeDomain": "GAHHULDPDVGB5WS5PH7BCGLJ7ZHECDBIIMKB62UPVDUOCHNFL7HX3FS7",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmNjtkrXTLqfHPnQJtWf83LYzoHmbHEtHunVCSP4b2CtTP"
+    },
+    {
+        "assetCode": "EURC",
+        "issuer": "circle.com",
+        "homeDomain": "GDHU6WRG4IEQXM5NZ4BMPKOXHW76MZM4Y2IEMFDVXBSDP6SJY4ITNPP2",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmeRk7LG85cozSNey9QGARgbxYi1cG1dA1G6SNJGMTMdF2"
+    },
+    {
+        "assetCode": "USDZ",
+        "issuer": "mint.zeam.money",
+        "homeDomain": "GAKTLPC4ZV37SSCITQ5IS5AQ4WPF4CF4VZJQPPAROSGXMYOATF5U6XPR",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmZ6CVm9MwV6VQoaq94HSwyu62SaeZqacw86asuB5Ax7HA"
+    },
+    {
+        "assetCode": "ETH",
+        "issuer": "dead.apay.io",
+        "homeDomain": "GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmbnmdJn7Dk7BYKbymq6GFvEDyhqth5hX5BbMgXGDJEbxe"
+    },
+    {
+        "assetCode": "PAYBO",
+        "issuer": "paybo.club",
+        "homeDomain": "GDNUDY5LNUVCO55LLK6H2RCOILB6EO7UOVAOGDTV3FB7Y2U45TMAXD3D",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmNXpXfFCamHZ5vdK3VLDj9ryjpYAKJUHZoky9DStmbf9W"
+    },
+    {
+        "assetCode": "SLVR",
+        "issuer": "mintx.co",
+        "homeDomain": "GBZVELEQD3WBN3R3VAG64HVBDOZ76ZL6QPLSFGKWPFED33Q3234NSLVR",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmQQEhd8XsN42hFoDrG7gi6EpbnEeStyuNBtKxtSVV3VyL"
+    },
+    {
+        "assetCode": "WXT",
+        "issuer": "wxt.wirexapp.com",
+        "homeDomain": "GASBLVHS5FOABSDNW5SPPH3QRJYXY5JHA2AOA2QHH2FJLZBRXSG4SWXT",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmWSGY1Csh4U9sRnwvRmYm8tWddZ2Wdy2TTY7FpWPACAAB"
+    },
+    {
+        "assetCode": "YBX",
+        "issuer": "script3.io",
+        "homeDomain": "GBUYYBXWCLT2MOSSHRFCKMEDFOVSCAXNIEW424GLN666OEXHAAWBDYMX",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmZxgmiVjXR2wVnD6H6Nw1Vose42mJNYguiLLQr9N8d5M6"
+    },
+    {
+        "assetCode": "SOLS",
+        "issuer": "solsbank.com",
+        "homeDomain": "GAWTJMZIR4KPCZ7BQZK6QRAJYT6FOIM3YP2MKGWOYHPJYQQOIEJWFRED",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmPsiQJvC5nrqQnmL6mMmyEAys5zpN6rRwckyAcLWod3DW"
+    },
+    {
+        "assetCode": "TREAD",
+        "issuer": "donttreadtoken.com",
+        "homeDomain": "GANMKTF7SVYEHZ4CTLRKT2MG2OUJNDEA3JGZGTUTHQZOZSWJHHUF6VLM",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmXEe9Ud1TT4uSeW1jSYi4dkh2sdwn7F9wZvFpT1gd261L"
+    },
+    {
+        "assetCode": "CANNACOIN",
+        "issuer": "www.stellarcannacoin.org",
+        "homeDomain": "GBLJ4223KUWIMV7RAPQKBA7YGR4I7H2BIV4KIMMXMQWYQBOZ6HLZR3RQ",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmZQPVn4pHqAsJfyVmMavXoqVkJ7uTZHmykVizXMe5mpaF"
+    },
+    {
+        "assetCode": "KRW",
+        "issuer": "kbtrading.org",
+        "homeDomain": "GDPKQ2TSNJOFSEE7XSUXPWRP27H6GFGLWD7JCHNEYYWQVGFA543EVBVT",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmQW3NCsFhktWi5PMp4CcVQimxNxk3AXEHVYHmGfWM1kDr"
+    },
+    {
+        "assetCode": "TRUMP",
+        "issuer": "wwg1wga.finance",
+        "homeDomain": "GBTFBKKA242GCMPLEM5KT7W5XMUY2WPA7O646IYRQ4FTCUUU7GWDGWWG",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmbMwsUSaj4GTcWf96uqjaPKDHvZTpZuyYV5iyNjbLhutv"
+    },
+    {
+        "assetCode": "QPI",
+        "issuer": "quantumstocks.org",
+        "homeDomain": "GASYWY2YTJX5QIX6V5ZVB7UEF4B7H2AK4XQDXYGIFA3CH4NAJZLCQSTK",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmafE9mcMffzZ6kdtTQct1WmX3pmZi2ZhSwke2tzq4Dj5Y"
+    },
+    {
+        "assetCode": "XLMG",
+        "issuer": "stellargold.net",
+        "homeDomain": "GCVNN7O5JISPEYUTLK3JYGBDWCPDIHB4MTG4PMSJVIKJCR64NOXWI3YH",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmYhUdK4tsdANFauidZsrEh2sxN4NM2SdnEToXnnCooc2R"
+    },
+    {
+        "assetCode": "KTHOUSE",
+        "issuer": "kthouse.co",
+        "homeDomain": "GB5BK7HJK7SJGJXN4X6BV2QBEWGXVMEZJRGKWBFU6PK6BV4DW7WOQ27W",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmYxr9u6FgV8zw1B41cXH4frMW91dKLt3DYcTeWexY3Uqa"
+    },
+    {
+        "assetCode": "SHAGGY",
+        "issuer": "shaggy-token.com",
+        "homeDomain": "GBC4JTZSIDM6KNGJPHPNF7DKK3YXYLFLOQKL2OS755KV62BN4TRZC5U3",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmQGeWSxenxbPTVnvVximdWmQ6YDmnWr3YNaNJ4snffNjU"
+    },
+    {
+        "assetCode": "DicInu",
+        "issuer": "dicinu.xmint.io",
+        "homeDomain": "GDMNBJWZBNQFCDUDPTG4DFLLUT6WPTMALBNX63OIM2YP5RLULTCFCNEA",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmWj33FCTzpwDpeUFqdddQ9gnA6Xyj9kKnt3usuRyBzBCM"
+    },
+    {
+        "assetCode": "LFI",
+        "issuer": "donttreadtoken.com",
+        "homeDomain": "GDX4QYQYGNMZXFTYLFZWUJSP32ASCBVQVOIRV55IVMDZKTRSYGZ3TWNJ",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmZ2Bq724S2E94Vw1KaTg7Nyae6EHTib65FXEkTUoH8K15"
+    },
+    {
+        "assetCode": "XAU",
+        "issuer": "xau.cl",
+        "homeDomain": "GBCB4WO6J4ET55RWK2SVX76LUQ4PQ7TCDHG2YFILQML7D6XR3HACLXAU",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmT9TDVejLTWvhAE53uJLCsD7MXfRZegDY5ydCNmZ77YC2"
+    },
+    {
+        "assetCode": "ySHIBA",
+        "issuer": "ultra-shiba.com",
+        "homeDomain": "GDJUWPUVWHVHYPZTFTKSR4OWMHK7MWGOWDUHH4NSEYWRLDECR57SHIBA",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmVjEJjQ21SQR8f44boTZkajHBtVnuxtDEZDF2L39ZoKcQ"
+    },
+    {
+        "assetCode": "XSHIB",
+        "issuer": "www.astro-shiba.com",
+        "homeDomain": "GCN23IFNJOXUVS6WHGTSBALWXPMH7GSP5VEXA7V4PTPBR2ZFGTAYGDOG",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmeM6Up5Et688Rqb2WUdD2c2Ex9x7cPFQKvTeDmRyvkTAN"
+    },
+    {
+        "assetCode": "QETH",
+        "issuer": "quantumfinancial.tech",
+        "homeDomain": "GD7MHMLJ5RU323ROHKSMO3WG2JMWZ4SMZUHIGEOOAL5ERJAD2SJOQQQQ",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmWWYD3hRdTi9cC75ZpivmHjR3u684DAgkJCrZfNLnbZ78"
+    },
+    {
+        "assetCode": "BIS",
+        "issuer": "projectjura.org",
+        "homeDomain": "GBXMN4Y5IF6OWC7UWQO32S47LW5RMKQMZGAZUZP4TNKT2B4TF2MQJURA",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmakBGMdvEQNStzapbSNTQmKVM5cUejYTWyxY8X7SE5Drj"
+    },
+    {
+        "assetCode": "JURAPROJECT",
+        "issuer": "projectjura.org",
+        "homeDomain": "GBXMN4Y5IF6OWC7UWQO32S47LW5RMKQMZGAZUZP4TNKT2B4TF2MQJURA",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmZ6jUhNwDNxXBqeaQzuGCtHVKRdJKDu5tzvVYUDXTa73Y"
+    },
+    {
+        "assetCode": "LINK",
+        "issuer": "dead.apay.io",
+        "homeDomain": "GBDEVU63Y6NTHJQQZIKVTC23NWLQVP3WJ2RI2OTSJTNYOIGICST6DUXR",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmbxTQbuTj96BLoVz3eHFZZSuFb2hkg4NUnoMmSfcvi7bz"
+    },
+    {
+        "assetCode": "USD",
+        "issuer": "realio.fund",
+        "homeDomain": "GBNLJIYH34UWO5YZFA3A3HD3N76R6DOI33N4JONUOHEEYZYCAYTEJ5AK",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmQACXcWs9hhMHMZMQxNgXtUf5fGCBowrUy3Tbqa334Tvm"
+    },
+    {
+        "assetCode": "neco",
+        "issuer": "neurotems-coin.site",
+        "homeDomain": "GB5NWTBDWP4S5YEPLXOPAUFAENOK7KM3Q6ZFZ55TGGQYIZEPFT22OL4S",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmYC2F2MJF8yYa8RfiM56B2zuFawRBk1pejRPNpATdC1Xe"
+    },
+    {
+        "assetCode": "MOONTWINKIES",
+        "issuer": "moontwinkies.stellarskull.io",
+        "homeDomain": "GCDBDMZDKKBA6FAPZTTU3C7FCOYPBMWCEOPSBWNVFPGIRCL6WVGIVXSQ",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmdX2BUXZCA3UB12ruba2X5mqLQXVHt8rymGN4txADX1sG"
+    },
+    {
+        "assetCode": "DXLM",
+        "issuer": "dogelumens.com",
+        "homeDomain": "GAE6DWVMZDAOBU4IIPGDM2EJ65PWZQ5X7MI7PUURWKTEVZSEJHRYI247",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmPcucScwSHhPba3XzdizsgSsdKzT77oa4s8QgBvVcW5r8"
+    },
+    {
+        "assetCode": "XSGD",
+        "issuer": "kbtrading.org",
+        "homeDomain": "GDPKQ2TSNJOFSEE7XSUXPWRP27H6GFGLWD7JCHNEYYWQVGFA543EVBVT",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmTmNG5hMoa7nHAZP35gUNpqHZwKPVBRhxRnCo7WeWkTjH"
+    },
+    {
+        "assetCode": "PEPE",
+        "issuer": "pepe-network.com",
+        "homeDomain": "GBY7MWXA5EJOBDX2BXVNXINGIHNMFTQAJEBI7MS72FTCQTTXL55IPEPE",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmeqhYFSTwbc4kbydEaNVAvksWYeXcvYXbKmayiHLux7nE"
+    },
+    {
+        "assetCode": "SATSMTL",
+        "issuer": "mtl.montelibero.org",
+        "homeDomain": "GACKTN5DAZGWXRWB2WLM6OPBDHAMT6SJNGLJZPQMEZBUR4JUGBX2UK7V",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmRpXgBRPNz2mdDtqcuwqyNh5L2TGbf8S5iZZsJ36fhTGa"
+    },
+    {
+        "assetCode": "XRPUSA",
+        "issuer": "usareserves.org",
+        "homeDomain": "GBCZ3ZDRZN6DLAU3QNI5US7QOV6ZUJTXA6IYYSEN2OS3PHTBS36PBANK",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmRExhaihmgu1D7rxiouYJxdfohQi6ZatedCnY3t1R5jPH"
+    },
+    {
+        "assetCode": "ARMY",
+        "issuer": "usareserves.org",
+        "homeDomain": "GAKFDC34T7BSWIA634VQCVAOIPKQ2JJ2U6IBY3E7H27P7ODB6GSWRESV",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmTBaoyawtQ4DwmktTVoXqzt4C3oesYB1tDpDw7x9vFDXy"
+    },
+    {
+        "assetCode": "NAVY",
+        "issuer": "usareserves.org",
+        "homeDomain": "GAKFDC34T7BSWIA634VQCVAOIPKQ2JJ2U6IBY3E7H27P7ODB6GSWRESV",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmZQnUhefifYqen5sYXjMELev35R1uhnJ2o8zxugoaWWrp"
+    },
+    {
+        "assetCode": "MARINE",
+        "issuer": "usareserves.org",
+        "homeDomain": "GAKFDC34T7BSWIA634VQCVAOIPKQ2JJ2U6IBY3E7H27P7ODB6GSWRESV",
+        "iconUrl": "https://stellar.myfilebase.com/ipfs/QmaRTS7VoaMgRBH9uegcmtzsrWahNtqHc3nQt2jYiYczCp"
+    }
+]
