@@ -3,9 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import "../styles/global.css";
 import assetsData from '../assets/assets.json'; // Import the assets JSON
 
-const assets = assetsData.map(asset => asset.assetCode); // Extract asset codes
-
-
+// const assets = assetsData.map(asset => asset.assetCode); // Extract asset codes - Will be replaced by dynamic loading
 
 ---
 
@@ -18,42 +16,81 @@ const assets = assetsData.map(asset => asset.assetCode); // Extract asset codes
       <!-- Left side - Form -->
       <div class="md:col-span-1">
         <div class="bg-gray-50 rounded-lg shadow-lg p-4">
-          <h2 class="text-2xl font-bold mb-6 text-gray-800">Swap Routes</h2>
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold text-gray-800">Swap Routes</h2>
+            <button id="openAssetListModalButton" class="text-gray-600 hover:text-gray-800">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.108 1.204.165.397.505.71.93.78l.893.15c.543.09.94.56.94 1.11v1.093c0 .55-.397 1.02-.94 1.11l-.893.149c-.425.07-.765.383-.93.78-.165.398-.142.854.108 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.397.165-.71.505-.78.93l-.15.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.149-.894c-.07-.424-.384-.764-.78-.93-.398-.164-.854-.142-1.204.108l-.738.527a1.125 1.125 0 0 1-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.273-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.11v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.142-.854-.108-1.204l-.526-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.93l.15-.893Z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+              </svg>
+            </button>
+          </div>
           
           <form id="swapForm" class="space-y-4 max-w-md">
             <!-- Source Asset -->
             <div>
-              <label for="sourceAsset" class="block text-sm font-medium text-gray-700">
+              <label for="sourceAssetDisplay" class="block text-sm font-medium text-gray-700">
                 Source Asset
               </label>
-              <select
-                id="sourceAsset"
-                name="sourceAsset"
-                class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2"
-                required
-              >
-                <option value="">Select source asset</option>
-                {assets.map((asset) => (
-                  <option value={asset}>{asset}</option>
-                ))}
-              </select>
+              <div class="mt-1 relative">
+                <button type="button" id="sourceAssetDisplayButton" class="relative w-full bg-white border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="flex items-center">
+                    <img id="sourceAssetSelectedIcon" src="" alt="" class="h-6 w-6 rounded-full object-contain mr-2 hidden">
+                    <span id="sourceAssetSelectedText" class="block truncate">Select source asset</span>
+                  </span>
+                  <span class="ml-3 absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                    <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path fill-rule="evenodd" d="M10 3a.75.75 0 01.75.75v10.5a.75.75 0 01-1.5 0V3.75A.75.75 0 0110 3zM5.22 6.22a.75.75 0 011.06 0L10 9.94l3.72-3.72a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.22 7.28a.75.75 0 010-1.06z" clip-rule="evenodd" />
+                    </svg>
+                  </span>
+                </button>
+                <ul id="sourceAssetOptions" class="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-120 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm hidden" tabindex="-1" role="listbox">
+                  <!-- Options will be populated by JavaScript -->
+                </ul>
+              </div>
+              <input type="hidden" id="sourceAsset" name="sourceAsset" required>
             </div>
 
-            <!-- Slippage Tolerance -->
+           
+
+            <!-- Destination Asset -->
             <div>
-              <label for="slippageTolerance" class="block text-sm font-medium text-gray-700">
-                Slippage Tolerance (%)
+              <label for="destinationAssetDisplay" class="block text-sm font-medium text-gray-700">
+                Destination Asset
               </label>
-              <input
-                type="number"
-                id="slippageTolerance"
-                name="slippageTolerance"
-                min="0"
-                step="0.01"
-                class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2"
-                placeholder="Enter slippage tolerance"
-                value="2"
-              />
+              <div class="mt-1 relative">
+                <button type="button" id="destinationAssetDisplayButton" class="relative w-full bg-white border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="flex items-center">
+                    <img id="destinationAssetSelectedIcon" src="" alt="" class="h-6 w-6 rounded-full object-contain mr-2 hidden">
+                    <span id="destinationAssetSelectedText" class="block truncate">Select destination asset</span>
+                  </span>
+                  <span class="ml-3 absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                    <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path fill-rule="evenodd" d="M10 3a.75.75 0 01.75.75v10.5a.75.75 0 01-1.5 0V3.75A.75.75 0 0110 3zM5.22 6.22a.75.75 0 011.06 0L10 9.94l3.72-3.72a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.22 7.28a.75.75 0 010-1.06z" clip-rule="evenodd" />
+                    </svg>
+                  </span>
+                </button>
+                <ul id="destinationAssetOptions" class="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-120 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm hidden" tabindex="-1" role="listbox">
+                  <!-- Options will be populated by JavaScript -->
+                </ul>
+              </div>
+              <input type="hidden" id="destinationAsset" name="destinationAsset" required>
+            </div>
+
+            
+            <!-- Trade Type -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700">Trade Type</label>
+              <div class="mt-1 flex space-x-4">
+                <label class="inline-flex items-center">
+                  <input type="radio" class="form-radio" name="tradeType" value="EXACT_IN" checked>
+                  <span class="ml-2 text-sm">Exact In/Strict Send</span>
+                </label>
+                <label class="inline-flex items-center">
+                  <input type="radio" class="form-radio" name="tradeType" value="EXACT_OUT">
+                  <span class="ml-2 text-sm">Exact Out/Strict Receive</span>
+                </label>
+              </div>
             </div>
 
             <!-- Source Amount -->
@@ -72,37 +109,37 @@ const assets = assetsData.map(asset => asset.assetCode); // Extract asset codes
               />
             </div>
 
-            <!-- Destination Asset -->
-            <div>
-              <label for="destinationAsset" class="block text-sm font-medium text-gray-700">
-                Destination Asset
-              </label>
-              <select
-                id="destinationAsset"
-                name="destinationAsset"
-                class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2"
-                required
-              >
-                <option value="">Select destination asset</option>
-                {assets.map((asset) => (
-                  <option value={asset}>{asset}</option>
-                ))}
-              </select>
-            </div>
-
-            <!-- Destination Amount -->
-            <div>
-              <label for="destinationAmount" class="block text-sm font-medium text-gray-700">
-                Amount
+             <!-- Slippage Tolerance -->
+             <div>
+              <label for="slippageTolerance" class="block text-sm font-medium text-gray-700">
+                Slippage Tolerance (%)
               </label>
               <input
                 type="number"
-                id="destinationAmount"
-                name="destinationAmount"
+                id="slippageTolerance"
+                name="slippageTolerance"
                 min="0"
-                step="any"
+                step="0.01"
                 class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2"
-                placeholder="Enter amount"
+                placeholder="Enter slippage tolerance"
+                value="2"
+              />
+            </div>
+
+            <!-- Max Hops (Soroswap) -->
+            <div>
+              <label for="maxHops" class="block text-sm font-medium text-gray-700">
+                Max Hops (Soroswap)
+              </label>
+              <input
+                type="number"
+                id="maxHops"
+                name="maxHops"
+                min="1"
+                step="1"
+                class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2"
+                placeholder="Enter max hops (e.g., 2)"
+                value="3" 
               />
             </div>
 
@@ -149,19 +186,120 @@ const assets = assetsData.map(asset => asset.assetCode); // Extract asset codes
   </div>
 </div>
 
+<!-- New test section for /pairs endpoint -->
+<div class="test-pairs-section mt-6">
+  <div class="bg-white p-4 rounded-lg shadow-lg">
+    <h3 class="text-xl font-semibold mb-2">Test Soroswap API: /pairs</h3>
+    <div class="mb-4">
+      <label for="pairsNetwork" class="block text-sm font-medium text-gray-700">Network:</label>
+      <select id="pairsNetwork" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2">
+        <option value="mainnet" selected>mainnet</option>
+        <option value="testnet">testnet</option>
+      </select>
+    </div>
+    <div class="mb-4">
+      <label for="pairsProtocol" class="block text-sm font-medium text-gray-700">Protocol (comma-separated):</label>
+      <input type="text" id="pairsProtocol" value="soroswap" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2" placeholder="e.g., soroswap,aqua">
+    </div>
+     <div class="mb-4">
+      <label for="pairsAssetList" class="block text-sm font-medium text-gray-700">Asset List (comma-separated, optional):</label>
+      <input type="text" id="pairsAssetList" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2" placeholder="e.g., SOROSWAP,AQUA">
+    </div>
+    <button id="fetchPairsButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+      Fetch /pairs
+    </button>
+    <div id="pairsResponse" class="mt-4 bg-gray-100 p-4 rounded-lg overflow-auto">
+      <h4 class="font-semibold">/pairs Response:</h4>
+      <pre><code class="json small-code">Click button to fetch data...</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for Asset List Settings -->
+<div id="assetListModal" class="fixed inset-0 bg-[rgba(75,85,99,0.1)] overflow-y-auto h-full w-full hidden z-50">
+  <div class="relative top-20 mx-auto p-5 border w-full max-w-lg shadow-lg rounded-md bg-white">
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="text-xl font-semibold">Configure Asset List Source</h3>
+      <button id="closeAssetListModalButton" class="text-gray-400 hover:text-gray-600">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    <div class="test-asset-list-section">
+      <!-- Content moved from original /asset-list section -->
+      <div class="mb-4">
+        <label for="assetListName" class="block text-sm font-medium text-gray-700">Asset List Name:</label>
+        <select id="assetListName" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2">
+          <option value="SOROSWAP" selected>SOROSWAP</option>
+          <option value="AQUA">AQUA</option>
+          <option value="LOBSTR">LOBSTR</option>
+          <option value="STELLAR">STELLAR</option>
+          <option value="TESTNET">TESTNET</option>
+        </select>
+      </div>
+      <button id="fetchAssetListButton" class="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+        Fetch & Update Asset List
+      </button>
+      <div id="assetListResponse" class="mt-4 bg-gray-100 p-4 rounded-lg overflow-auto max-h-60">
+        <h4 class="font-semibold">/asset-list Response:</h4>
+        <pre><code class="json small-code">Click button to fetch data...</code></pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- New test section for /asset-list endpoint -->
+<!-- This section is now moved into the modal -->
+
 <script>
 	import assetsData from '../assets/assets.json'; // Import the assets JSON
-  // Add proper types for Soroswap imports
-//   let Router: any, Token: any, CurrencyAmount: any, TradeType: any, Networks: any, Protocol: any;
+  // REMOVE Soroswap SDK imports
+  // let Router: any, Token: any, CurrencyAmount: any, TradeType: any, Networks: any, Protocol: any;
   let server: any;
   let StellarSdk: any;
 
-  const tokenAddresses: Record<string, string> = assetsData.reduce((acc, asset) => {
-  acc[asset.assetCode] = asset.homeDomain; // Use homeDomain for each asset code
-  return acc;
-}, {
-  'XLM': 'CAS3J7GYLGXMF6TDJBBYYSE3HQ6BBSMLNUQ34T6TZMYMW2EVH34XOWMA', // Add XLM address
-});
+  // Soroswap API Configuration
+  const SOROSWAP_API_BASE_URL = 'https://api.soroswap.finance'; // Replace with actual API URL if different
+  let soroswapApiToken: string | null = null;
+
+  // Access .env variables
+  // IMPORTANT: For client-side Astro, environment variables need to be prefixed with PUBLIC_
+  // e.g., PUBLIC_SOROSWAP_EMAIL in your .env file
+  const SOROSWAP_EMAIL = import.meta.env.PUBLIC_SOROSWAP_EMAIL;
+  const SOROSWAP_PASSWORD = import.meta.env.PUBLIC_SOROSWAP_PASSWORD;
+
+  // Define known Soroban contract addresses (for Soroswap API)
+  const knownSorobanContracts: Record<string, string> = {
+    'XLM': 'CAS3J7GYLGXMF6TDJBBYYSE3HQ6BBSMLNUQ34T6TZMYMW2EVH34XOWMA', // This is likely a wXLM contract
+    'USDC': 'CCW67TSZV3SSS2HXMBQ5JFGCKJNXKZM7UQUWUZPUTHXSTZLEO7SJMI75', // Example from Soroswap docs, presumed to be USDC
+    // Add other known Soroban contract IDs here
+  };
+
+  // Map for Soroswap API: Asset Code -> Soroban Contract ID
+  // Initialize as let to allow reassignment from API data
+  let soroswapContractIds: Record<string, string> = assetsData.reduce((acc: Record<string, string>, asset) => {
+    if (knownSorobanContracts[asset.assetCode]) {
+      acc[asset.assetCode] = knownSorobanContracts[asset.assetCode];
+    } else if (asset.homeDomain && !asset.homeDomain.startsWith('G')) { // Basic check if homeDomain might be a contract ID
+      // If not in knownSorobanContracts and homeDomain doesn't look like a G... issuer,
+      // it *might* be a Soroban contract ID from assets.json. Use with caution.
+      // For reliable Soroswap integration, explicit contract IDs in knownSorobanContracts is best.
+      acc[asset.assetCode] = asset.homeDomain;
+    }
+    // If it's a G... address in homeDomain, it's not a Soroban contract ID, so we don't add it here.
+    return acc;
+  }, { ...knownSorobanContracts });
+
+
+  // Map for Classic Stellar Assets: Asset Code -> Classic Issuer G... Address
+  // Initialize as let to allow reassignment from API data
+  let classicAssetIssuers: Record<string, string> = assetsData.reduce((acc: Record<string, string>, asset) => {
+    if (asset.assetCode !== 'XLM' && asset.homeDomain && asset.homeDomain.startsWith('G')) {
+      acc[asset.assetCode] = asset.homeDomain;
+    }
+    return acc;
+  }, {});
 
   // Initialize both SDKs
   async function initSDKs() {
@@ -169,149 +307,633 @@ const assets = assetsData.map(asset => asset.assetCode); // Extract asset codes
       StellarSdk = await import('@stellar/stellar-sdk');
       server = new StellarSdk.Horizon.Server('https://horizon.stellar.org');
     }
+    // Attempt to login to Soroswap API when SDKs are initialized
+    if (!soroswapApiToken) {
+      await loginToSoroswapApi();
+    }
   }
-  import {
-  Router,
-  Token,
-  CurrencyAmount,
-  TradeType,
-  Networks,
-  Protocol
-} from "soroswap-router-sdk";
+  // REMOVE SDK Imports that were here
+  // import {
+  // Router,
+  // Token,
+  // CurrencyAmount,
+  // TradeType,
+  // Networks,
+  // Protocol
+  // } from "soroswap-router-sdk";
 
   const form = document.getElementById('swapForm') as HTMLFormElement;
-  const sourceAmount = document.getElementById('sourceAmount') as HTMLInputElement;
-  const destinationAmount = document.getElementById('destinationAmount') as HTMLInputElement;
+  const amountInput = document.getElementById('sourceAmount') as HTMLInputElement; // Renamed for clarity
   const pathResult = document.getElementById('pathResult');
+  const sourceAssetInput = document.getElementById('sourceAsset') as HTMLInputElement; // Hidden input for source
+  const destAssetInput = document.getElementById('destinationAsset') as HTMLInputElement; // Hidden input for dest
 
-  // Set default values
-  if (form) {
-    const sourceAssetSelect = form.querySelector('#sourceAsset') as HTMLSelectElement;
-    const destAssetSelect = form.querySelector('#destinationAsset') as HTMLSelectElement;
-    
-    sourceAssetSelect.value = 'XLM';
-    destAssetSelect.value = 'USDC';
-    sourceAmount.value = '100';
+  // --- Custom Dropdown Elements ---
+  // Source Asset
+  const sourceAssetDisplayButton = document.getElementById('sourceAssetDisplayButton') as HTMLButtonElement;
+  const sourceAssetSelectedIcon = document.getElementById('sourceAssetSelectedIcon') as HTMLImageElement;
+  const sourceAssetSelectedText = document.getElementById('sourceAssetSelectedText') as HTMLSpanElement;
+  const sourceAssetOptionsUL = document.getElementById('sourceAssetOptions') as HTMLUListElement;
+
+  // Destination Asset
+  const destinationAssetDisplayButton = document.getElementById('destinationAssetDisplayButton') as HTMLButtonElement;
+  const destinationAssetSelectedIcon = document.getElementById('destinationAssetSelectedIcon') as HTMLImageElement;
+  const destinationAssetSelectedText = document.getElementById('destinationAssetSelectedText') as HTMLSpanElement;
+  const destinationAssetOptionsUL = document.getElementById('destinationAssetOptions') as HTMLUListElement;
+  
+  const defaultIconSVG = `
+    <svg class="h-6 w-6 rounded-full text-gray-300 bg-gray-100" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+    </svg>
+  `; // Basic placeholder icon
+
+  // Function to set the selected asset for custom dropdowns
+  function setSelectedAssetUI(type: 'source' | 'destination', assetCode: string | null, assetsList: Array<{ code: string, name?: string, icon?: string, domain?: string }>) {
+    const selectedTextEl = type === 'source' ? sourceAssetSelectedText : destinationAssetSelectedText;
+    const selectedIconEl = type === 'source' ? sourceAssetSelectedIcon : destinationAssetSelectedIcon;
+    const hiddenInputEl = type === 'source' ? sourceAssetInput : destAssetInput;
+
+    if (!assetCode) { // Handle case where no asset is selected (e.g., initial placeholder)
+        selectedTextEl.textContent = type === 'source' ? 'Select source asset' : 'Select destination asset';
+        selectedIconEl.classList.add('hidden');
+        selectedIconEl.src = '';
+        hiddenInputEl.value = '';
+        return;
+    }
+
+    const asset = assetsList.find(a => a.code === assetCode);
+    if (!asset) {
+        console.warn(`Asset ${assetCode} not found in provided list for ${type} dropdown.`);
+        selectedTextEl.textContent = assetCode; // Or keep placeholder
+        selectedIconEl.classList.add('hidden');
+        selectedIconEl.src = '';
+        hiddenInputEl.value = assetCode;
+        return;
+    }
+
+    selectedTextEl.textContent = asset.domain ? `${asset.code} (${asset.domain})` : `${asset.code} ${asset.name && asset.name !== asset.code ? '(' + asset.name + ')' : ''}`;
+    if (asset.icon) {
+        selectedIconEl.src = asset.icon;
+        selectedIconEl.classList.remove('hidden');
+    } else {
+        selectedIconEl.src = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(defaultIconSVG);
+        selectedIconEl.classList.remove('hidden'); // Show placeholder
+    }
+    selectedIconEl.onerror = function(eventOrString: Event | string) { 
+        (this as HTMLImageElement).src = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(defaultIconSVG); 
+        (this as HTMLImageElement).classList.remove('hidden');
+    };
+    hiddenInputEl.value = asset.code;
   }
 
-  // Handle amount input focus
-  sourceAmount?.addEventListener('focus', () => {
-    if (destinationAmount) destinationAmount.value = '';
-  });
 
-  destinationAmount?.addEventListener('focus', () => {
-    if (sourceAmount) sourceAmount.value = '';
-  });
+  // Function to update asset dropdowns
+  function updateAssetDropdowns(assets: Array<{ code: string, name?: string, contract?: string, issuer?: string, icon?: string, domain?: string }>) {
+    if (!sourceAssetOptionsUL || !destinationAssetOptionsUL) {
+        console.error("Custom dropdown UL elements not found!");
+        return;
+    }
+    if (!sourceAssetInput || !destAssetInput) {
+        console.error("Hidden input elements for assets not found!");
+        return;
+    }
+
+    const currentSourceVal = sourceAssetInput.value;
+    const currentDestVal = destAssetInput.value;
+
+    // Define the standard XLM representation we want at the top
+    const xlmIconUrl = 'https://assets.coingecko.com/coins/images/100/standard/Stellar_symbol_black_RGB.png';
+    let xlmTopAsset = {
+      code: 'XLM',
+      name: 'Stellar Lumens',
+      domain: 'stellar.org',
+      icon: xlmIconUrl,
+      contract: 'CAS3J7GYLGXMF6TDJBBYYSE3HQ6BBSMLNUQ34T6TZMYMW2EVH34XOWMA', // XLM is native
+      issuer: undefined    // XLM is native
+    };
+
+    // Check if XLM is in the incoming list and get its details
+    const existingXlm = assets.find(a => a.code === 'XLM');
+    if (existingXlm) {
+      // If XLM from the list has specific icon/domain/name, prefer it over defaults (except for core properties)
+      xlmTopAsset.icon = existingXlm.icon || xlmIconUrl; // Prefer fetched icon if available
+      xlmTopAsset.domain = existingXlm.domain || xlmTopAsset.domain;
+      xlmTopAsset.name = existingXlm.name || xlmTopAsset.name;
+    }
+
+    // Filter out any existing XLM from the main list to avoid duplicates
+    const otherAssets = assets.filter(asset => asset.code !== 'XLM');
+
+    // Create the final list with XLM at the beginning
+    const finalAssetsList = [xlmTopAsset, ...otherAssets];
+
+    sourceAssetOptionsUL.innerHTML = '';
+    destinationAssetOptionsUL.innerHTML = '';
+
+    // let xlmExists = false; // XLM is now guaranteed to be first
+    let usdcExists = false;
+
+    const createOptionElement = (asset: { code: string, name?: string, icon?: string, domain?: string }, type: 'source' | 'destination') => {
+      const li = document.createElement('li');
+      li.className = 'text-gray-900 cursor-default select-none relative py-2 pl-3 pr-9 hover:bg-indigo-600 hover:text-white';
+      li.id = `listbox-option-${type}-${asset.code}`;
+      li.setAttribute('role', 'option');
+      li.setAttribute('data-value', asset.code);
+      li.setAttribute('data-icon', asset.icon || 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(defaultIconSVG));
+      const displayName = asset.domain ? `${asset.code} (${asset.domain})` : `${asset.code} ${asset.name && asset.name !== asset.code ? '(' + asset.name + ')' : ''}`;
+      li.setAttribute('data-name', displayName);
+
+      const flexDiv = document.createElement('div');
+      flexDiv.className = 'flex items-center';
+
+      const img = document.createElement('img');
+      img.src = asset.icon || 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(defaultIconSVG); // Use default if no icon
+      img.alt = asset.code;
+      img.className = 'h-6 w-6 rounded-full object-contain mr-2';
+      img.onerror = function(eventOrString: Event | string) { (this as HTMLImageElement).src = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(defaultIconSVG); };
+
+
+      const span = document.createElement('span');
+      span.className = 'font-normal block truncate';
+      span.textContent = displayName;
+      
+      flexDiv.appendChild(img);
+      flexDiv.appendChild(span);
+      li.appendChild(flexDiv);
+
+      li.addEventListener('click', (event) => { // Added event parameter typing
+        const selectedTextEl = type === 'source' ? sourceAssetSelectedText : destinationAssetSelectedText;
+        const selectedIconEl = type === 'source' ? sourceAssetSelectedIcon : destinationAssetSelectedIcon;
+        const hiddenInputEl = type === 'source' ? sourceAssetInput : destAssetInput;
+        const optionsULEl = type === 'source' ? sourceAssetOptionsUL : destinationAssetOptionsUL;
+        const displayButtonEl = type === 'source' ? sourceAssetDisplayButton : destinationAssetDisplayButton;
+
+        let clickedAssetDisplayName = asset.code; // Default to asset code
+        if (event && event.currentTarget) { // Check if event and currentTarget exist
+          clickedAssetDisplayName = (event.currentTarget as HTMLLIElement).getAttribute('data-name') || asset.code;
+        }
+        selectedTextEl.textContent = clickedAssetDisplayName;
+
+        if (asset.icon) {
+            selectedIconEl.src = asset.icon;
+            selectedIconEl.classList.remove('hidden');
+        } else {
+            selectedIconEl.src = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(defaultIconSVG);
+            selectedIconEl.classList.remove('hidden'); // Show placeholder
+        }
+        selectedIconEl.onerror = function(eventOrString: Event | string) { 
+            (this as HTMLImageElement).src = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(defaultIconSVG); 
+            (this as HTMLImageElement).classList.remove('hidden');
+        };
+
+
+        hiddenInputEl.value = asset.code;
+        // Trigger a change event for any dependent logic
+        hiddenInputEl.dispatchEvent(new Event('change', { bubbles: true }));
+
+
+        optionsULEl.classList.add('hidden');
+        displayButtonEl.setAttribute('aria-expanded', 'false');
+      });
+      return li;
+    };
+
+    finalAssetsList.forEach(asset => {
+      sourceAssetOptionsUL.appendChild(createOptionElement(asset, 'source'));
+      destinationAssetOptionsUL.appendChild(createOptionElement(asset, 'destination'));
+
+      // if (asset.code === 'XLM') xlmExists = true; // No longer needed as XLM is always first
+      if (asset.code === 'USDC') usdcExists = true;
+    });
+    
+    // Function to set selected asset, updating display and hidden input
+    const setSelectedAsset = (type: 'source' | 'destination', assetCode: string | null, assetsList: Array<{ code: string, name?: string, icon?: string, domain?: string }>) => { // Added | null to assetCode and domain
+        const asset = assetsList.find(a => a.code === assetCode);
+
+        const selectedTextEl = type === 'source' ? sourceAssetSelectedText : destinationAssetSelectedText;
+        const selectedIconEl = type === 'source' ? sourceAssetSelectedIcon : destinationAssetSelectedIcon;
+        const hiddenInputEl = type === 'source' ? sourceAssetInput : destAssetInput; // Corrected here
+
+        if (!asset || !assetCode) { // If assetCode is null or asset not found
+            selectedTextEl.textContent = type === 'source' ? 'Select source asset' : 'Select destination asset';
+            selectedIconEl.classList.add('hidden');
+            selectedIconEl.src = '';
+            hiddenInputEl.value = '';
+            return;
+        }
+        
+        selectedTextEl.textContent = asset.domain ? `${asset.code} (${asset.domain})` : `${asset.code} ${asset.name && asset.name !== asset.code ? '(' + asset.name + ')' : ''}`;
+        if (asset.icon) {
+            selectedIconEl.src = asset.icon;
+            selectedIconEl.classList.remove('hidden');
+        } else {
+            selectedIconEl.src = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(defaultIconSVG);
+            selectedIconEl.classList.remove('hidden');
+        }
+        selectedIconEl.onerror = function(eventOrString: Event | string) { 
+            (this as HTMLImageElement).src = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(defaultIconSVG); 
+            (this as HTMLImageElement).classList.remove('hidden');
+        };
+        hiddenInputEl.value = asset.code;
+    };
+
+
+    // Try to reselect previous values or set defaults
+    let defaultSourceCode: string | null = null;
+    if (finalAssetsList.some(a => a.code === currentSourceVal)) {
+      defaultSourceCode = currentSourceVal;
+    } else { // No previous value or previous value not in new list, default to XLM
+      defaultSourceCode = 'XLM'; 
+    }
+    if (defaultSourceCode) setSelectedAssetUI('source', defaultSourceCode, finalAssetsList);
+    else setSelectedAssetUI('source', null, finalAssetsList); // Fallback to placeholder if XLM somehow failed (should not happen)
+
+
+    let defaultDestCode: string | null = null;
+    if (finalAssetsList.some(a => a.code === currentDestVal)) {
+      defaultDestCode = currentDestVal;
+    } else if (usdcExists && (sourceAssetInput.value !== 'USDC' || defaultSourceCode !== 'USDC') ) {
+      defaultDestCode = 'USDC';
+    } else if (finalAssetsList.length > 1 && defaultSourceCode === finalAssetsList[0].code && finalAssetsList[0].code !== finalAssetsList[1]?.code) { 
+      defaultDestCode = finalAssetsList[1].code;
+    } else if (finalAssetsList.length > 0 && defaultSourceCode !== finalAssetsList[0].code && finalAssetsList[0].code) { 
+        defaultDestCode = finalAssetsList[0].code; // Should be XLM if source wasn't XLM
+    } else if (finalAssetsList.length > 2 && defaultSourceCode === finalAssetsList[0].code && finalAssetsList[0].code === finalAssetsList[1]?.code) { // Highly unlikely case
+        defaultDestCode = finalAssetsList[2].code;
+    }
+    
+    if (defaultDestCode) setSelectedAssetUI('destination', defaultDestCode, finalAssetsList);
+    else setSelectedAssetUI('destination', null, finalAssetsList); // Set to placeholder
+
+    // Set a default amount if not already set by user and source is selected
+    if (sourceAssetInput.value && !amountInput.value) { // Corrected here
+        amountInput.value = '100';
+    }
+  }
+  
+  // Toggle dropdown visibility
+  const setupDropdownToggle = (buttonEl: HTMLButtonElement, optionsULEl: HTMLUListElement) => {
+    if (!buttonEl || !optionsULEl) return;
+    buttonEl.addEventListener('click', () => {
+      const isExpanded = optionsULEl.classList.toggle('hidden');
+      buttonEl.setAttribute('aria-expanded', (!isExpanded).toString());
+    });
+
+    // Close dropdown if clicked outside
+    document.addEventListener('click', (event) => {
+      if (!buttonEl.contains(event.target as Node) && !optionsULEl.contains(event.target as Node)) {
+        optionsULEl.classList.add('hidden');
+        buttonEl.setAttribute('aria-expanded', 'false');
+      }
+    });
+  };
+
+  setupDropdownToggle(sourceAssetDisplayButton, sourceAssetOptionsUL);
+  setupDropdownToggle(destinationAssetDisplayButton, destinationAssetOptionsUL);
+
+  // Event listeners for clearing the other amount field on focus are no longer needed.
 
   const DEBUG = true;  // Toggle debugging
 
-  // Helper function to create a token
-  function createToken(asset: string, tokenAddresses: Record<string, string>, assetNames: Record<string, string>) {
-    return new Token(
-      Networks.PUBLIC,
-      tokenAddresses[asset],
-      7,
-      asset,
-      assetNames[asset]
-    );
+  // Function to login to Soroswap API
+  async function loginToSoroswapApi() {
+    console.log('Attempting Soroswap API login. Email defined:', !!SOROSWAP_EMAIL, 'Password defined:', !!SOROSWAP_PASSWORD);
+    if (!SOROSWAP_EMAIL || !SOROSWAP_PASSWORD) {
+      console.error('Soroswap API email or password not set in .env variables. Ensure they are prefixed with PUBLIC_ and the dev server was restarted.');
+      const soroswapResponseEl = document.getElementById('soroswapResponse')?.querySelector('code');
+      if (soroswapResponseEl) {
+        soroswapResponseEl.textContent = JSON.stringify({ error: 'Soroswap API credentials not configured. Check .env (PUBLIC_ prefix) and restart server.' }, null, 2);
+      }
+      return false;
+    }
+    try {
+      const response = await fetch(`${SOROSWAP_API_BASE_URL}/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: SOROSWAP_EMAIL, password: SOROSWAP_PASSWORD }),
+      });
+
+      if (!response.ok) {
+        let errorPayload: { message: string, details?: any, code?: number } = { 
+            message: `API login failed: ${response.status} ${response.statusText}`,
+            code: response.status
+        };
+        try {
+          const responseText = await response.text();
+          console.error('Soroswap API Login failed. Raw response text:', responseText);
+          if (responseText) {
+            try {
+                const errorData = JSON.parse(responseText);
+                errorPayload = { ...errorPayload, ...errorData };
+                console.error('Soroswap API Login failed with JSON data:', errorData);
+            } catch (jsonError) {
+                errorPayload.details = responseText; // Store raw text if not JSON
+                console.error('Soroswap API Login error response was not valid JSON. Content:', responseText);
+            }
+          }
+        } catch (readError) {
+          console.error('Soroswap API Login failed, and could not read error response body:', readError);
+          errorPayload.details = (errorPayload.details || '') + ' Failed to read response body.';
+        }
+        
+        const soroswapResponseCodeEl = document.getElementById('soroswapResponse')?.querySelector('code');
+        if (soroswapResponseCodeEl) {
+            soroswapResponseCodeEl.textContent = JSON.stringify({ error: 'Soroswap API Login failed.', ...errorPayload }, null, 2);
+        }
+        throw new Error(errorPayload.message + (errorPayload.details ? ` Details: ${typeof errorPayload.details === 'string' ? errorPayload.details : JSON.stringify(errorPayload.details)}` : ''));
+      }
+      
+      const data = await response.json();
+      if (data && data.access_token) {
+        soroswapApiToken = data.access_token;
+        console.log('Soroswap API login successful. Token acquired.');
+        // Clear any previous login error from UI
+        const soroswapResponseCodeEl = document.getElementById('soroswapResponse')?.querySelector('code');
+        const currentSoroswapText = soroswapResponseCodeEl?.textContent;
+        if (currentSoroswapText) {
+            try {
+                const currentData = JSON.parse(currentSoroswapText);
+                if (currentData.error && currentData.error.includes('Soroswap API Login failed')) {
+                    soroswapResponseCodeEl.textContent = JSON.stringify({ message: 'Login successful, awaiting swap data...' }, null, 2);
+                }
+            } catch(e) { /* ignore parsing error of existing text */ }
+        }
+        return true;
+      } else {
+        console.error('Soroswap API Login response did not contain access_token:', data);
+        const soroswapResponseCodeEl = document.getElementById('soroswapResponse')?.querySelector('code');
+        if (soroswapResponseCodeEl) {
+            soroswapResponseCodeEl.textContent = JSON.stringify({ error: 'Access token not found in login response.', details: data }, null, 2);
+        }
+        throw new Error('Access token not found in login response');
+      }
+    } catch (error) {
+      console.error('Error during Soroswap API login process:', error);
+      // Avoid overwriting specific UI error messages if already set by the !response.ok block
+      const soroswapResponseCodeEl = document.getElementById('soroswapResponse')?.querySelector('code');
+      if (soroswapResponseCodeEl) {
+          let currentErrorData;
+          try {
+              currentErrorData = soroswapResponseCodeEl.textContent ? JSON.parse(soroswapResponseCodeEl.textContent) : {};
+          } catch(e) {
+              currentErrorData = {};
+          }
+          if (!currentErrorData.error || !currentErrorData.error.includes('Soroswap API Login failed')) {
+               soroswapResponseCodeEl.textContent = JSON.stringify({ error: 'Soroswap API login failed.', details: error instanceof Error ? error.message : String(error) }, null, 2);
+          }
+      }
+      return false;
+    }
   }
 
-  // Function to create router with debug logging
-  function createRouter() {
-    return new Router({
-      pairsCacheInSeconds: 20,
-      protocols: [Protocol.SOROSWAP],
-      network: Networks.PUBLIC,
-      onBeforeRequest: DEBUG ? (url: string, init: RouterConfig) => {
-        console.log('Making API request:', { 
-          url,
-          method: init?.init?.method,
-          headers: init?.init?.headers
-        });
-      } : undefined,
-      onAfterResponse: DEBUG ? (url: string, response: RouterResponse) => {
-        console.log('API response:', { 
-          url, 
-          status: response.status,
-          ok: response.status >= 200 && response.status < 300
-        });
-      } : undefined
-    });
-  }
+  // Generic function to call Soroswap API
+  async function callSoroswapApi(endpoint: string, method: string = 'GET', body: any = null, defaultNetworkQueryVal: string = 'mainnet') {
+    if (!soroswapApiToken) {
+      console.log('No Soroswap API token found, attempting login first...');
+      const loggedIn = await loginToSoroswapApi();
+      if (!loggedIn) {
+        // Error should have been logged and displayed by loginToSoroswapApi
+        throw new Error('Soroswap API authentication required but login failed or credentials not set.');
+      }
+      console.log('Login attempt finished. Token available:', !!soroswapApiToken);
+    } else {
+      console.log('Using existing Soroswap API token for call to', endpoint);
+    }
 
-  // Update the findSoroswapPath function
-  async function findSoroswapPath(sourceAsset: string, destAsset: string, amount: string) {
-    console.log('Starting findSoroswapPath with:', { sourceAsset, destAsset, amount });
+    let constructedUrl = `${SOROSWAP_API_BASE_URL}${endpoint}`;
 
-    const assetNames: Record<string, string> = {
-      'XLM': 'Stellar Lumens',
-      'USDC': 'USD Coin',
-      'ETH': 'Ethereum',
-      'BTC': 'Bitcoin',
-      // Add more asset names as needed
+    // Check if the endpoint string itself already contains a 'network=' query parameter.
+    const endpointAlreadyHasNetworkQuery = /[?&]network=/.test(endpoint);
+
+    if (!endpointAlreadyHasNetworkQuery) {
+      // If the base endpoint path (e.g., /router/swap) doesn't specify its own network query param,
+      // then append the defaultNetworkQueryVal.
+      if (constructedUrl.includes('?')) {
+        constructedUrl += `&network=${defaultNetworkQueryVal}`;
+      } else {
+        constructedUrl += `?network=${defaultNetworkQueryVal}`;
+      }
+    }
+    // If endpointAlreadyHasNetworkQuery is true, we assume the `endpoint` string (e.g. for /pairs)
+    // is already correctly formatted with its specific network parameter, so we don't add another one.
+
+    const headers: HeadersInit = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${soroswapApiToken}`,
     };
 
-    // Check if we have addresses for both assets
-    if (!tokenAddresses[sourceAsset] || !tokenAddresses[destAsset]) {
-      console.error('Token address not found:', {
-        sourceAsset,
-        sourceAddress: tokenAddresses[sourceAsset],
-        destAsset,
-        destAddress: tokenAddresses[destAsset]
-      });
-      return null;
+    if (DEBUG) {
+      console.log('Calling Soroswap API:', { url: constructedUrl, method, body, headers });
     }
 
     try {
-      const sourceToken = createToken(sourceAsset, tokenAddresses, assetNames);
-      const destToken = createToken(destAsset, tokenAddresses, assetNames);
+      const response = await fetch(constructedUrl, {
+        method,
+        headers,
+        body: body ? JSON.stringify(body) : null,
+      });
 
-      const router = createRouter();
+      if (DEBUG) {
+        console.log('Soroswap API raw response:', { status: response.status, statusText: response.statusText });
+      }
 
-      // Convert amount to the smallest unit (7 decimals)
-      const rawAmount = Math.floor(parseFloat(amount) * 10000000).toString();
-      const currencyAmount = CurrencyAmount.fromRawAmount(sourceToken, rawAmount);
+      if (!response.ok) {
+        let errorData;
+        try {
+          errorData = await response.json();
+        } catch (e) {
+          errorData = { message: response.statusText };
+        }
+        console.error('Soroswap API Error:', { status: response.status, data: errorData, endpoint, method });
+        throw new Error(`API request to ${endpoint} failed: ${response.status} ${errorData.message || response.statusText}`);
+      }
+      // For 204 No Content or similar success responses without a body
+      if (response.status === 204 || response.headers.get("content-length") === "0") {
+        return null; 
+      }
+      return await response.json();
+    } catch (error) {
+      console.error(`Error calling Soroswap API endpoint ${endpoint}:`, error);
+      throw error;
+    }
+  }
 
-      const route = await router.route(currencyAmount, destToken, TradeType.EXACT_INPUT);
 
-      // Check if route exists and has trade property
-      if (!route || !route.trade) {
-        console.error('Route is null or trade is null:', route);
-        return null;
+  // Update the findSoroswapPath function to use the new API call structure
+  async function findSoroswapPath(sourceAssetCode: string, destAssetCode: string, amountStr: string, tradeTypeApi: 'EXACT_IN' | 'EXACT_OUT', slippageBps: string, maxHops: number) {
+    console.log('Starting findSoroswapPath (API) with:', { sourceAssetCode, destAssetCode, amountStr, tradeTypeApi, slippageBps, maxHops });
+
+    // Use soroswapContractIds for Soroswap API
+    const sourceAssetContract = soroswapContractIds[sourceAssetCode];
+    const destAssetContract = soroswapContractIds[destAssetCode];
+
+    if (!sourceAssetContract) {
+      console.error('Soroswap Contract ID not found for source asset:', sourceAssetCode);
+      return { error: `Soroswap Contract ID not found for source asset: ${sourceAssetCode}. Ensure it's in knownSorobanContracts or assets.json with a non-G... homeDomain.` };
+    }
+    if (!destAssetContract) {
+      console.error('Soroswap Contract ID not found for destination asset:', destAssetCode);
+      return { error: `Soroswap Contract ID not found for destination asset: ${destAssetCode}. Ensure it's in knownSorobanContracts or assets.json with a non-G... homeDomain.` };
+    }
+    
+    // Convert amount to the smallest unit (7 decimals typically for Stellar assets)
+    // The API expects the amount in the smallest unit.
+    // Ensure amountStr is a valid number string before parsing.
+    const amountNum = parseFloat(amountStr);
+    if (isNaN(amountNum) || amountNum <= 0) {
+        console.error('Invalid amount for Soroswap API call:', amountStr);
+        return { error: 'Invalid or zero amount provided.' };
+    }
+    const rawAmount = Math.floor(amountNum * 10000000).toString();
+
+
+    const payload = {
+      assetIn: sourceAssetContract,
+      assetOut: destAssetContract,
+      amount: rawAmount, // API expects amount as a string representing the raw value
+      tradeType: tradeTypeApi,
+      slippageTolerance: slippageBps, // e.g., "50" for 0.5%
+      maxHops: maxHops, 
+      // assetList is optional, can be added later if needed
+      // assetList: ["SOROSWAP", "AQUA"] 
+    };
+
+    try {
+      // Assuming 'mainnet' for now, this could be dynamic
+      const routeData = await callSoroswapApi('/router/swap', 'POST', payload, 'mainnet'); 
+      
+      console.log('Soroswap API /router/swap response:', routeData);
+
+      if (!routeData) {
+        console.error('No route data received from Soroswap API /router/swap');
+        return { error: 'No route found by Soroswap API.' };
+      }
+      
+      // Extract data from the API response, especially from the nested 'trade' object
+      let finalPath: string[] = [];
+      let finalInputAmount: string = 'N/A';
+      let finalOutputAmount: string = 'N/A';
+
+      if (routeData.trade) {
+        finalPath = routeData.trade.path || [];
+        if (routeData.trade.amountIn) {
+          finalInputAmount = (BigInt(routeData.trade.amountIn) / BigInt(10000000)).toString();
+        }
+        // For EXACT_IN, expectedAmountOut is the relevant field for output
+        // For EXACT_OUT, amountOutMin would be what the user specified as desired output, and amountIn would be calculated.
+        // The API might return slightly different structures based on tradeType.
+        // Based on your example, we are using trade.expectedAmountOut for an EXACT_IN trade.
+        if (routeData.trade.expectedAmountOut && tradeTypeApi === 'EXACT_IN') {
+          finalOutputAmount = (BigInt(routeData.trade.expectedAmountOut) / BigInt(10000000)).toString();
+        } else if (routeData.trade.amountOutMin && tradeTypeApi === 'EXACT_OUT') {
+          // If it were an EXACT_OUT, amountOutMin might be what we want to display as output
+          // and amountIn would be the calculated input.
+          finalOutputAmount = (BigInt(routeData.trade.amountOutMin) / BigInt(10000000)).toString(); 
+        } else if (routeData.amountOut) { // Fallback to top-level amountOut if trade object doesn't have expected field
+            finalOutputAmount = (BigInt(routeData.amountOut) / BigInt(10000000)).toString();
+        }
+      } else {
+        // Fallback for older or different structures if `trade` object is not present
+        finalPath = routeData.path || [];
+        if (routeData.amountIn) {
+          finalInputAmount = (BigInt(routeData.amountIn) / BigInt(10000000)).toString();
+        } else if (routeData.inputAmount) { // another possible fallback
+          finalInputAmount = (BigInt(routeData.inputAmount) / BigInt(10000000)).toString();
+        }
+        if (routeData.amountOut) {
+          finalOutputAmount = (BigInt(routeData.amountOut) / BigInt(10000000)).toString();
+        } else if (routeData.outputAmount) { // another possible fallback
+          finalOutputAmount = (BigInt(routeData.outputAmount) / BigInt(10000000)).toString();
+        }
+      }
+      // If after all checks, inputAmount is still N/A but we have the original payload amount (for EXACT_IN)
+      if (finalInputAmount === 'N/A' && tradeTypeApi === 'EXACT_IN'){
+        finalInputAmount = (BigInt(payload.amount) / BigInt(10000000)).toString();
       }
 
       const result = {
-        path: route.trade.path || [],
-        inputAmount: route.trade.inputAmount.toSignificant(6),
-        outputAmount: route.trade.outputAmount.toSignificant(6)
+        path: finalPath,
+        inputAmount: finalInputAmount,
+        outputAmount: finalOutputAmount,
+        details: routeData // Store the full response for debugging/more info
       };
 
-      console.log('Successfully found route:', result);
+      console.log('Soroswap API path result:', result);
       return result;
 
     } catch (error: unknown) {
-      console.error('Soroswap path error:', error);
-      if (error instanceof Error) {
-        console.error('Error details:', {
+      console.error('Soroswap API path error:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown Soroswap API error';
+      if (error instanceof Error && DEBUG) {
+        console.error('Soroswap API Error details:', {
           message: error.message,
-          stack: error.stack
+          stack: error.stack,
         });
       }
-      return null;
+      return { error: errorMessage, details: error };
     }
   }
 
 
 import {estimateSwap} from '@stellar-broker/client'
 
-async function estimateSwapForAssets(sourceAsset: string, destAsset: string, amount: string, slippageTolerance: number) {
-    const issuers: Record<string, string> = Object.keys(tokenAddresses).reduce((acc, asset) => {
-      acc[asset] = tokenAddresses[asset]; // Automatically list all assets and their issuers
-      return acc;
-    }, {} as Record<string, string>);
+// Define a type for the API responses for clarity in updateResponseOutput
+interface SwapResponse {
+  source?: { amount: string; asset: string };
+  destination?: { amount: string; asset: string };
+  path?: string[];
+  fees?: { min: string; max: string; median: string };
+  inputAmount?: string;
+  outputAmount?: string;
+  error?: string;
+  details?: any; // Can be more specific if error structure is known
+  // Fields for Stellar Broker specifically
+  sellingAmount?: string;
+  estimatedBuyingAmount?: string;
+  slippageTolerance?: number;
+  profit?: string;
+  directTrade?: { path: string[] };
+}
 
-    const formattedSourceAsset = sourceAsset === 'XLM' ? 'xlm' : `${sourceAsset}-${issuers[sourceAsset]}`;
-    const formattedDestAsset = destAsset === 'XLM' ? 'xlm' : `${destAsset}-${issuers[destAsset]}`;
+interface AllResponses {
+  stellarResult: SwapResponse;
+  soroswapResult: SwapResponse;
+  stellarBrokerResult: SwapResponse;
+}
+
+async function estimateSwapForAssets(sourceAsset: string, destAsset: string, amount: string, slippageTolerance: number) {
+    // Use classicAssetIssuers for Stellar Broker
+    const sourceIssuer = classicAssetIssuers[sourceAsset];
+    const destIssuer = classicAssetIssuers[destAsset];
+
+    const formattedSourceAsset = sourceAsset === 'XLM' ? 'xlm' : (sourceIssuer ? `${sourceAsset}-${sourceIssuer}` : '');
+    const formattedDestAsset = destAsset === 'XLM' ? 'xlm' : (destIssuer ? `${destAsset}-${destIssuer}`: '');
+
+    if (sourceAsset !== 'XLM' && !sourceIssuer) {
+      console.error('Classic issuer not found for source asset for Stellar Broker:', sourceAsset);
+      return { error: `Stellar Broker: Classic issuer not found for source asset ${sourceAsset}. Check assets.json.` };
+    }
+    if (destAsset !== 'XLM' && !destIssuer) {
+      console.error('Classic issuer not found for destination asset for Stellar Broker:', destAsset);
+      return { error: `Stellar Broker: Classic issuer not found for destination asset ${destAsset}. Check assets.json.` };
+    }
+
+    // This check was slightly incorrect before, now simplified
+    if (!formattedSourceAsset) {
+      return { error: `Stellar Broker: Could not format source asset ${sourceAsset}.` };
+    }
+    if (!formattedDestAsset) {
+      return { error: `Stellar Broker: Could not format destination asset ${destAsset}.` };
+    }
+    
+    console.log('Stellar Broker request:', {
+        sellingAsset: formattedSourceAsset,
+        buyingAsset: formattedDestAsset,
+        sellingAmount: amount, 
+        slippageTolerance: slippageTolerance
+    });
 
     const result = await estimateSwap({
         sellingAsset: formattedSourceAsset,
@@ -326,14 +948,14 @@ async function estimateSwapForAssets(sourceAsset: string, destAsset: string, amo
 
 
   // Function to update the response output section
-  function updateResponseOutput(responses) {
-    const stellarResponse = document.getElementById('stellarResponse').querySelector('code');
-    const soroswapResponse = document.getElementById('soroswapResponse').querySelector('code');
-    const stellarBrokerResponse = document.getElementById('stellarBrokerResponse').querySelector('code');
+  function updateResponseOutput(responses: AllResponses) {
+    const stellarResponseEl = document.getElementById('stellarResponse')?.querySelector('code');
+    const soroswapResponseEl = document.getElementById('soroswapResponse')?.querySelector('code');
+    const stellarBrokerResponseEl = document.getElementById('stellarBrokerResponse')?.querySelector('code');
 
-    stellarResponse.textContent = JSON.stringify(responses.stellarResult, null, 2);
-    soroswapResponse.textContent = JSON.stringify(responses.soroswapResult, null, 2);
-    stellarBrokerResponse.textContent = JSON.stringify(responses.stellarBrokerResult, null, 2);
+    if (stellarResponseEl) stellarResponseEl.textContent = JSON.stringify(responses.stellarResult, null, 2);
+    if (soroswapResponseEl) soroswapResponseEl.textContent = JSON.stringify(responses.soroswapResult, null, 2);
+    if (stellarBrokerResponseEl) stellarBrokerResponseEl.textContent = JSON.stringify(responses.stellarBrokerResult, null, 2);
   }
 
   // Function to handle Stellar swap
@@ -342,8 +964,9 @@ async function estimateSwapForAssets(sourceAsset: string, destAsset: string, amo
   }
 
   // Function to handle Soroswap
-  async function handleSoroswap(sourceAsset: string, destAsset: string, amount: string) {
-    return await findSoroswapPath(sourceAsset, destAsset, amount);
+  async function handleSoroswap(sourceAsset: string, destAsset: string, amount: string, tradeType: 'EXACT_IN' | 'EXACT_OUT', slippageToleranceBps: string, maxHops: number) {
+    // Use the new findSoroswapPath function that calls the API
+    return await findSoroswapPath(sourceAsset, destAsset, amount, tradeType, slippageToleranceBps, maxHops);
   }
 
   // Function to handle Stellar Broker
@@ -355,22 +978,41 @@ async function estimateSwapForAssets(sourceAsset: string, destAsset: string, amo
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     
-    await initSDKs();
+    await initSDKs(); // This will now also attempt Soroswap API login
 
     const formData = new FormData(form);
     const sourceAsset = formData.get('sourceAsset')?.toString() || '';
     const destAsset = formData.get('destinationAsset')?.toString() || '';
-    const srcAmount = formData.get('sourceAmount')?.toString() || '0';
-    const destAmount = formData.get('destinationAmount')?.toString() || '0';
-    const slippageTolerance = parseFloat(formData.get('slippageTolerance')?.toString() || '0') / 100; // Capture slippage tolerance as a decimal
+    const amountValue = amountInput.value; // Get value from the single amount input
+    const slippagePercentage = parseFloat(formData.get('slippageTolerance')?.toString() || '0.5'); // Default to 0.5%
+    const tradeTypeForm = formData.get('tradeType')?.toString() as 'EXACT_IN' | 'EXACT_OUT' || 'EXACT_IN';
+    const maxHops = parseInt(formData.get('maxHops')?.toString() || '3', 10); // Read maxHops, default to 3
+
+    // Convert slippage from percentage to basis points string for Soroswap API (e.g., 0.5% -> "50")
+    const slippageBps = (slippagePercentage * 100).toFixed(0);
+    // Slippage for Stellar Broker (decimal)
+    const slippageDecimal = slippagePercentage / 100;
+
+    let srcAmount = '0';
+    let destAmount = '0';
+    let amountForApis = '0';
+
+    if (tradeTypeForm === 'EXACT_IN') {
+      srcAmount = amountValue;
+      amountForApis = srcAmount;
+    } else { // EXACT_OUT
+      destAmount = amountValue;
+      amountForApis = destAmount;
+    }
 
     if (!sourceAsset || !destAsset) {
       alert('Please select both assets');
       return;
     }
 
-    if (!srcAmount && !destAmount) {
-      alert('Please enter either source or destination amount');
+    // if (!srcAmount && !destAmount) { // This check is now based on amountValue
+    if (!amountValue || parseFloat(amountValue) <= 0) {
+      alert('Please enter a valid amount to swap');
       return;
     }
 
@@ -379,13 +1021,13 @@ async function estimateSwapForAssets(sourceAsset: string, destAsset: string, amo
     try {
       pathResult.innerHTML = '<p class="text-gray-600">Searching for paths...</p>';
 
-      const isStrictSend = Boolean(srcAmount);
+      const isStrictSend = tradeTypeForm === 'EXACT_IN';
       
       // Get both Stellar and Soroswap paths, and add Stellar Broker path
       const [stellarResult, soroswapResult, stellarBrokerResult] = await Promise.all([
-        handleStellarSwap(sourceAsset || '', destAsset || '', isStrictSend ? srcAmount : destAmount, isStrictSend),
-        handleSoroswap(sourceAsset || '', destAsset || '', (srcAmount || destAmount)),
-        handleStellarBroker(sourceAsset, destAsset, srcAmount || destAmount, slippageTolerance) // Pass slippage tolerance
+        handleStellarSwap(sourceAsset || '', destAsset || '', amountForApis, isStrictSend),
+        handleSoroswap(sourceAsset || '', destAsset || '', amountForApis, tradeTypeForm, slippageBps, maxHops),
+        handleStellarBroker(sourceAsset, destAsset, amountForApis, slippageDecimal) // Pass slippage tolerance as decimal
       ]);
 
       console.log('Stellar Broker Result:', stellarBrokerResult);
@@ -393,144 +1035,242 @@ async function estimateSwapForAssets(sourceAsset: string, destAsset: string, amo
       // Update the response output section
       updateResponseOutput({ stellarResult, soroswapResult, stellarBrokerResult });
 
+      // Calculate exchange rates and determine the best one
+      let stellarRate = 0;
+      if (stellarResult && !stellarResult.error && 
+          stellarResult.source && typeof stellarResult.source.amount === 'string' && Number(stellarResult.source.amount) > 0 &&
+          stellarResult.destination && typeof stellarResult.destination.amount === 'string' && Number(stellarResult.destination.amount) >= 0) {
+        stellarRate = Number(stellarResult.destination.amount) / Number(stellarResult.source.amount);
+      }
+
+      let soroswapRate = 0;
+      if (soroswapResult && !soroswapResult.error && 
+          typeof soroswapResult.inputAmount === 'string' && Number(soroswapResult.inputAmount) > 0 &&
+          typeof soroswapResult.outputAmount === 'string' && Number(soroswapResult.outputAmount) >= 0) {
+        soroswapRate = Number(soroswapResult.outputAmount) / Number(soroswapResult.inputAmount);
+      }
+
+      let brokerRate = 0;
+      if (stellarBrokerResult && !stellarBrokerResult.error && 
+          typeof stellarBrokerResult.sellingAmount === 'string' && Number(stellarBrokerResult.sellingAmount) > 0 &&
+          typeof stellarBrokerResult.estimatedBuyingAmount === 'string' && Number(stellarBrokerResult.estimatedBuyingAmount) >= 0) {
+        brokerRate = Number(stellarBrokerResult.estimatedBuyingAmount) / Number(stellarBrokerResult.sellingAmount);
+      }
+
+      let bestRate = 0;
+      let bestProvider = '';
+
+      if (stellarRate > bestRate) {
+        bestRate = stellarRate;
+        bestProvider = 'stellar';
+      }
+      if (soroswapRate > bestRate) {
+        bestRate = soroswapRate;
+        bestProvider = 'soroswap';
+      }
+      if (brokerRate > bestRate) {
+        bestRate = brokerRate;
+        bestProvider = 'broker';
+      }
+
+      const bestRateTag = `<span class="inline-block bg-green-500 text-white text-xs font-semibold px-2 py-1 rounded-full ml-2">Best Rate</span>`;
+
+
       // Handle Soroswap result
-      if (!soroswapResult) {
-        console.warn('No Soroswap path found.');
+      if (soroswapResult && 'error' in soroswapResult) {
+        console.warn('No Soroswap path found or error occurred:', soroswapResult.error);
+        // Display error in UI for Soroswap
+        const soroswapDisplay = pathResult.querySelector('#soroswapResultDisplay'); 
+        if (soroswapDisplay) {
+            soroswapDisplay.innerHTML = `<p class="text-red-600">Soroswap: ${soroswapResult.error || 'No path found or error occurred.'}</p>`;
+        }
       }
 
       // Update the display to show all results
       pathResult.innerHTML = `
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 response-section">
           <div>
-            <h3 class="text-xl font-semibold mb-2">Path Payment</h3>
+            <h3 class="text-xl font-semibold mb-2">Path Payment ${bestProvider === 'stellar' && bestRate > 0 ? bestRateTag : ''}</h3>
             <div class="bg-white p-3 rounded-lg shadow-lg border border-gray-200">
-              <p class="mb-1">
-                <span class="font-medium">Source:</span> 
-                ${stellarResult.source.amount} ${stellarResult.source.asset}
-              </p>
-              <p class="mb-1">
-                <span class="font-medium">Destination:</span> 
-                ${stellarResult.destination.amount} ${stellarResult.destination.asset}
-              </p>
-              <p class="text-sm text-gray-600 mt-2">
-                Exchange rate: 1 ${sourceAsset} = ${(
-                  Number(stellarResult.destination.amount) / Number(stellarResult.source.amount)
-                ).toFixed(7)} ${destAsset}
-              </p>
-              <p class="text-sm text-gray-600 mt-2">
-                Direction: ${isStrictSend ? 'Strict Send' : 'Strict Receive'}
-              </p>
-              ${stellarResult.path.length > 0 ? `
-                <div class="mt-2">
-                  <p class="font-medium">Path:</p>
-                  <p class="text-sm text-gray-600">${stellarResult.path.join(' → ')}</p>
+              ${stellarResult && !('error' in stellarResult) ? `
+                <p class="mb-1">
+                  <span class="font-medium">Source:</span> 
+                  ${stellarResult.source?.amount || 'N/A'} ${stellarResult.source?.asset || 'N/A'}
+                </p>
+                <p class="mb-1">
+                  <span class="font-medium">Destination:</span> 
+                  ${stellarResult.destination?.amount || 'N/A'} ${stellarResult.destination?.asset || 'N/A'}
+                </p>
+                <p class="text-sm text-gray-600 mt-2">
+                  Exchange rate: 1 ${sourceAsset} = ${(
+                    Number(stellarResult.destination?.amount) / Number(stellarResult.source?.amount)
+                  ).toFixed(7)} ${destAsset}
+                </p>
+                <p class="text-sm text-gray-600 mt-2">
+                  Direction: ${isStrictSend ? 'Strict Send' : 'Strict Receive'}
+                </p>
+                ${stellarResult.path && stellarResult.path.length > 0 ? `
+                  <div class="mt-2">
+                    <p class="font-medium">Path:</p>
+                    <p class="text-sm text-gray-600">${stellarResult.path.join(' → ')}</p>
+                  </div>
+                ` : '<p class="text-sm text-gray-600 mt-2">No direct path found.</p>'}
+                <div class="mt-2 p-2 bg-gray-100 rounded">
+                  <p class="font-medium mb-1">Estimated Transaction Fees (XLM):</p>
+                  <p class="text-sm">Minimum: ${stellarResult.fees?.min || 'N/A'}</p>
+                  <p class="text-sm">Maximum: ${stellarResult.fees?.max || 'N/A'}</p>
+                  <p class="text-sm">Median: ${stellarResult.fees?.median || 'N/A'}</p>
                 </div>
-              ` : ''}
-              <div class="mt-2 p-2 bg-gray-100 rounded">
-                <p class="font-medium mb-1">Estimated Transaction Fees (XLM):</p>
-                <p class="text-sm">Minimum: ${stellarResult.fees.min}</p>
-                <p class="text-sm">Maximum: ${stellarResult.fees.max}</p>
-                <p class="text-sm">Median: ${stellarResult.fees.median}</p>
-              </div>
+              ` : `
+                <p class="text-red-600">Stellar Path: ${(stellarResult && 'error' in stellarResult && stellarResult.error) || 'Error or no path found.'}</p>
+              `}
             </div>
           </div>
           
           <div>
-            <h3 class="text-xl font-semibold mb-2">Soroswap Aggregator</h3>
-            <div class="bg-white p-3 rounded-lg shadow-lg border border-gray-200">
-              ${soroswapResult ? `
+            <h3 class="text-xl font-semibold mb-2">Soroswap Aggregator ${bestProvider === 'soroswap' && bestRate > 0 ? bestRateTag : ''}</h3>
+            <div id="soroswapResultDisplay" class="bg-white p-3 rounded-lg shadow-lg border border-gray-200">
+              ${soroswapResult && !('error' in soroswapResult) ? `
                 <p class="mb-1">
                   <span class="font-medium">Input:</span> 
-                  ${soroswapResult.inputAmount} ${sourceAsset}
+                  ${soroswapResult.inputAmount || 'N/A'} ${sourceAsset}
                 </p>
                 <p class="mb-1">
                   <span class="font-medium">Output:</span> 
-                  ${soroswapResult.outputAmount} ${destAsset}
+                  ${soroswapResult.outputAmount || 'N/A'} ${destAsset}
                 </p>
                 <p class="text-sm text-gray-600 mt-2">
-                  Exchange rate: 1 ${sourceAsset} = ${(
-                    Number(soroswapResult.outputAmount) / Number(soroswapResult.inputAmount)
-                  ).toFixed(7)} ${destAsset}
+                  Exchange rate: 1 ${sourceAsset} = ${soroswapResult.inputAmount && soroswapResult.outputAmount ? (Number(soroswapResult.outputAmount) / Number(soroswapResult.inputAmount)).toFixed(7) : 'N/A'} ${destAsset}
                 </p>
-                ${soroswapResult.path.length > 0 ? `
+                ${soroswapResult.path && soroswapResult.path.length > 0 ? `
                   <div class="mt-2">
                     <p class="font-medium">Path:</p>
                     <p class="text-sm text-gray-600">${soroswapResult.path.join(' → ')}</p>
                   </div>
+                ` : '<p class="text-sm text-gray-600 mt-2">No direct path found.</p>'}
+                ${soroswapResult.details ? `
+                  <div class="mt-3">
+                    <button 
+                      type="button"
+                      class="text-sm text-indigo-600 hover:text-indigo-500 focus:outline-none"
+                      onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'; this.textContent = this.nextElementSibling.style.display === 'none' ? 'Show Raw API Data' : 'Hide Raw API Data';"
+                    >
+                      Show Raw API Data
+                    </button>
+                    <pre class="text-xs bg-gray-100 p-2 mt-1 rounded overflow-auto max-h-48" style="display: none;"><code>${JSON.stringify(soroswapResult.details, null, 2)}</code></pre>
+                  </div>
                 ` : ''}
               ` : `
-                <p class="text-red-600">No Soroswap path found.</p>
+                <p class="text-red-600">Soroswap: ${soroswapResult.error || 'No path found or error occurred.'}</p>
+                ${soroswapResult.details ? `
+                  <div class="mt-3">
+                    <button 
+                      type="button"
+                      class="text-sm text-indigo-600 hover:text-indigo-500 focus:outline-none"
+                      onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'; this.textContent = this.nextElementSibling.style.display === 'none' ? 'Show Raw API Data' : 'Hide Raw API Data';"
+                    >
+                      Show Raw API Data
+                    </button>
+                    <pre class="text-xs bg-gray-100 p-2 mt-1 rounded overflow-auto max-h-48" style="display: none;"><code>${JSON.stringify(soroswapResult.details, null, 2)}</code></pre>
+                  </div>
+                ` : ''}
               `}
             </div>
           </div>
 
           <div>
-            <h3 class="text-xl font-semibold mb-2">Stellar Broker</h3>
+            <h3 class="text-xl font-semibold mb-2">Stellar Broker ${bestProvider === 'broker' && bestRate > 0 ? bestRateTag : ''}</h3>
             <div class="bg-white p-3 rounded-lg shadow-lg border border-gray-200">
-              ${stellarBrokerResult ? `
+              ${stellarBrokerResult && !stellarBrokerResult.error && 'sellingAmount' in stellarBrokerResult ? `
                 <p class="mb-1">
                   <span class="font-medium">Source:</span> 
-                  ${stellarBrokerResult.sellingAmount} ${sourceAsset}
+                  ${stellarBrokerResult.sellingAmount || 'N/A'} ${sourceAsset}
                 </p>
                 <p class="mb-1">
                   <span class="font-medium">Destination:</span> 
-                  ${stellarBrokerResult.estimatedBuyingAmount} ${destAsset}
+                  ${stellarBrokerResult.estimatedBuyingAmount || 'N/A'} ${destAsset}
                 </p>
                 <p class="text-sm text-gray-600 mt-2">
-                  Exchange rate: 1 ${sourceAsset} = ${(
-                    Number(stellarBrokerResult.estimatedBuyingAmount) / Number(stellarBrokerResult.sellingAmount)
-                  ).toFixed(7)} ${destAsset}
+                  Exchange rate: 1 ${sourceAsset} = ${stellarBrokerResult.sellingAmount && stellarBrokerResult.estimatedBuyingAmount ? (Number(stellarBrokerResult.estimatedBuyingAmount) / Number(stellarBrokerResult.sellingAmount)).toFixed(7) : 'N/A'} ${destAsset}
                 </p>
                 <p class="text-sm text-gray-600 mt-2">
-                  Direction: ${stellarBrokerResult.direction}
+                  Slippage Tolerance: ${stellarBrokerResult.slippageTolerance !== undefined ? stellarBrokerResult.slippageTolerance * 100 : 'N/A'}%
                 </p>
                 <p class="text-sm text-gray-600 mt-2">
-                  Slippage Tolerance: ${stellarBrokerResult.slippageTolerance*100}%
+                  Profit: ${stellarBrokerResult.profit || 'N/A'} ${destAsset}
                 </p>
-                <p class="text-sm text-gray-600 mt-2">
-                  Profit: ${stellarBrokerResult.profit} ${destAsset}
-                </p>
-                ${stellarBrokerResult.directTrade.path.length > 0 ? `
-                  <p class="font-medium">Path:</p>
-                  <p class="text-sm text-gray-600">${stellarBrokerResult.directTrade.path.join(' → ')}</p>
+                ${stellarBrokerResult.directTrade && stellarBrokerResult.directTrade.path && stellarBrokerResult.directTrade.path.length > 0 ? `
+                  <div class="mt-2">
+                    <p class="font-medium">Path:</p>
+                    <p class="text-sm text-gray-600">${stellarBrokerResult.directTrade.path.join(' → ')}</p>
+                  </div>
                 ` : `
-                  <p class="text-yellow-600 text-sm mt-2">Direct trade available: You can sell ${stellarBrokerResult.sellingAmount} ${sourceAsset} for ${stellarBrokerResult.estimatedBuyingAmount} ${destAsset} without a defined path.</p>
+                  <p class="text-yellow-600 text-sm mt-2">Direct trade available: You can sell ${stellarBrokerResult.sellingAmount || 'N/A'} ${sourceAsset} for ${stellarBrokerResult.estimatedBuyingAmount || 'N/A'} ${destAsset} without a defined path.</p>
                 `}
+                ${stellarBrokerResult ? `
+                  <div class="mt-3">
+                    <button 
+                      type="button"
+                      class="text-sm text-indigo-600 hover:text-indigo-500 focus:outline-none"
+                      onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'; this.textContent = this.nextElementSibling.style.display === 'none' ? 'Show Raw API Data' : 'Hide Raw API Data';"
+                    >
+                      Show Raw API Data
+                    </button>
+                    <pre class="text-xs bg-gray-100 p-2 mt-1 rounded overflow-auto max-h-48" style="display: none;"><code>${JSON.stringify(stellarBrokerResult, null, 2)}</code></pre>
+                  </div>
+                ` : ''}
               ` : `
-                <p class="text-red-600">No Stellar Broker path found.</p>
+                <p class="text-red-600">Stellar Broker: ${stellarBrokerResult.error || 'No path found or error occurred.'}</p>
+                ${stellarBrokerResult ? ` 
+                  <div class="mt-3">
+                    <button 
+                      type="button"
+                      class="text-sm text-indigo-600 hover:text-indigo-500 focus:outline-none"
+                      onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'; this.textContent = this.nextElementSibling.style.display === 'none' ? 'Show Raw API Data' : 'Hide Raw API Data';"
+                    >
+                      Show Raw API Data
+                    </button>
+                    <pre class="text-xs bg-gray-100 p-2 mt-1 rounded overflow-auto max-h-48" style="display: none;"><code>${JSON.stringify(stellarBrokerResult, null, 2)}</code></pre>
+                  </div>
+                ` : ''}
               `}
             </div>
           </div>
         </div>
       `;
     } catch (error: unknown) {
-      pathResult.innerHTML = `
-        <div class="text-red-600">
-          Error finding paths: ${error instanceof Error ? error.message : 'Unknown error occurred'}
-        </div>
-      `;
+      if (pathResult) { // Check if pathResult is not null
+        pathResult.innerHTML = `
+          <div class="text-red-600">
+            Error finding paths: ${error instanceof Error ? error.message : 'Unknown error occurred'}
+          </div>
+        `;
+      }
     }
   });
 
-  async function findPathPayment(sourceAsset: string, destAsset: string, amount: string | null, isStrictSend: boolean) {
+  async function findPathPayment(sourceAsset: string, destAsset: string, amount: string | null, isStrictSend: boolean): Promise<SwapResponse> {
     if (!amount) throw new Error('Amount is required');
     
-    // Convert asset codes to Stellar Asset objects
+    // Convert asset codes to Stellar Asset objects using classicAssetIssuers
     const getAsset = (code: string) => {
       if (code === 'XLM') {
         return new StellarSdk.Asset.native();
       }
-      // For non-native assets, you'll need to specify the issuer
-      const issuers: Record<string, string> = Object.keys(tokenAddresses).reduce((acc, asset) => {
-  acc[asset] = tokenAddresses[asset]; // Automatically list all assets and their issuers
-  return acc;
-}, {} as Record<string, string>);
+      // Use classicAssetIssuers for Stellar Path Payments
+      const issuer = classicAssetIssuers[code];
       
-      if (!issuers[code]) {
-        throw new Error(`Issuer not found for asset ${code}`);
+      if (!issuer) {
+        console.error(`Classic issuer not found for asset ${code} in findPathPayment. Available classic issuers:`, classicAssetIssuers);
+        throw new Error(`Path Payment: Classic issuer not found for asset ${code}. Ensure it has a G... homeDomain in assets.json.`);
+      }
+      // Validate if issuer is a G... address (StellarSdk.Asset constructor will also do this)
+      if (!StellarSdk.StrKey.isValidEd25519PublicKey(issuer)) {
+        console.error(`Invalid classic issuer format for asset ${code}: ${issuer}`);
+        throw new Error(`Path Payment: Invalid classic issuer format for ${code}: ${issuer}. Must be a G... address.`);
       }
       
-      return new StellarSdk.Asset(code, issuers[code]);
+      return new StellarSdk.Asset(code, issuer);
     };
 
     const stellarSourceAsset = getAsset(sourceAsset);
@@ -570,7 +1310,7 @@ async function estimateSwapForAssets(sourceAsset: string, destAsset: string, amo
         median: (parseInt(feesInStroops.median) / 10000000).toFixed(7)
       };
 
-      let pathData;
+      let pathData: any; // Type Horizon path data more specifically if possible
       
       if (isStrictSend) {
         pathData = await server
@@ -591,7 +1331,9 @@ async function estimateSwapForAssets(sourceAsset: string, destAsset: string, amo
       }
 
       if (!pathData.records || pathData.records.length === 0) {
-        throw new Error('No path found between these assets');
+        console.warn('No path found between these assets by Stellar Horizon.');
+        return { error: 'No path found between these assets (Stellar Horizon)' };
+        // throw new Error('No path found between these assets'); // Original behavior
       }
 
       const bestPath = pathData.records[0];
@@ -611,11 +1353,190 @@ async function estimateSwapForAssets(sourceAsset: string, destAsset: string, amo
         fees: feesInXLM
       };
     } catch (error: unknown) {
+      console.error('Error in findPathPayment:', error);
       if (error instanceof Error) {
-        throw new Error(error.message);
+         return { error: error.message };
+        // throw new Error(error.message); // Original behavior
       }
-      throw error;
+      return { error: 'Unknown error in findPathPayment' };
+      // throw error; // Original behavior
     }
   }
+
+  // Event listener for the new /pairs test button
+  const fetchPairsButton = document.getElementById('fetchPairsButton');
+  const pairsResponseEl = document.getElementById('pairsResponse')?.querySelector('code');
+  const pairsNetworkSelect = document.getElementById('pairsNetwork') as HTMLSelectElement;
+  const pairsProtocolInput = document.getElementById('pairsProtocol') as HTMLInputElement;
+  const pairsAssetListInput = document.getElementById('pairsAssetList') as HTMLInputElement;
+
+  fetchPairsButton?.addEventListener('click', async () => {
+    if (!pairsResponseEl) return;
+    pairsResponseEl.textContent = 'Fetching /pairs data...';
+    await initSDKs(); // Ensure login has been attempted
+
+    const network = pairsNetworkSelect.value;
+    const protocols = pairsProtocolInput.value.split(',').map(p => p.trim()).filter(p => p);
+    const assetList = pairsAssetListInput.value.split(',').map(a => a.trim().toUpperCase()).filter(a => a);
+
+    if (protocols.length === 0) {
+      pairsResponseEl.textContent = JSON.stringify({ error: 'Protocol is required.' }, null, 2);
+      return;
+    }
+
+    let endpoint = `/pairs?network=${network}`;
+    protocols.forEach(protocol => {
+      endpoint += `&protocol=${encodeURIComponent(protocol)}`;
+    });
+    if (assetList.length > 0) {
+        assetList.forEach(asset => {
+            endpoint += `&assetList=${encodeURIComponent(asset)}`;
+        });
+    }
+
+    try {
+      // Use callSoroswapApi to fetch /pairs. Note: callSoroswapApi itself uses mainnet by default in its URL construction if not overridden.
+      // For /pairs, the network parameter in the query string is what the API uses.
+      const pairsData = await callSoroswapApi(endpoint, 'GET', null);
+      console.log('/pairs API response:', pairsData);
+      pairsResponseEl.textContent = JSON.stringify(pairsData, null, 2);
+    } catch (error: unknown) {
+      console.error('Error fetching /pairs:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error fetching /pairs data.';
+      pairsResponseEl.textContent = JSON.stringify({ error: errorMessage, details: error }, null, 2);
+    }
+  });
+
+  // Event listener for the new /asset-list test button
+  const fetchAssetListButton = document.getElementById('fetchAssetListButton');
+  const assetListResponseEl = document.getElementById('assetListResponse')?.querySelector('code');
+  const assetListNameSelect = document.getElementById('assetListName') as HTMLSelectElement; // Changed from HTMLInputElement
+
+  // Modal elements
+  const assetListModal = document.getElementById('assetListModal');
+  const openAssetListModalButton = document.getElementById('openAssetListModalButton');
+  const closeAssetListModalButton = document.getElementById('closeAssetListModalButton');
+
+  // Event listeners for modal
+  openAssetListModalButton?.addEventListener('click', () => {
+    assetListModal?.classList.remove('hidden');
+  });
+
+  closeAssetListModalButton?.addEventListener('click', () => {
+    assetListModal?.classList.add('hidden');
+  });
+
+  // Optional: Close modal if clicked outside of it
+  assetListModal?.addEventListener('click', (event) => {
+    if (event.target === assetListModal) {
+      assetListModal?.classList.add('hidden');
+    }
+  });
+
+  async function fetchAndProcessAssetList(assetListName: string) {
+    if (!assetListResponseEl) return false;
+    assetListResponseEl.textContent = 'Fetching /asset-list data...';
+    await initSDKs(); // Ensure login has been attempted
+
+    if (!assetListName) {
+      assetListResponseEl.textContent = JSON.stringify({ error: 'Asset List Name is required.' }, null, 2);
+      return false;
+    }
+
+    const endpoint = `/asset-list?name=${encodeURIComponent(assetListName.toUpperCase())}`;
+
+    try {
+      const assetListData = await callSoroswapApi(endpoint, 'GET', null);
+      console.log(`/asset-list API response for ${assetListName}:`, assetListData);
+      assetListResponseEl.textContent = JSON.stringify(assetListData, null, 2);
+
+      if (assetListData && assetListData.assets && Array.isArray(assetListData.assets)) {
+        updateAssetDropdowns(assetListData.assets);
+        // Update Soroswap contract IDs and Classic Asset Issuers based on this new list.
+        // Initialize with known contracts, then let API override/add.
+        soroswapContractIds = { ...knownSorobanContracts }; // Ensure known contracts are the base
+        classicAssetIssuers = {}; // Classic issuers are usually fully derived from the list
+
+        assetListData.assets.forEach((asset: { code: string, contract?: string, issuer?: string, domain?: string }) => {
+          if (asset.contract) {
+            soroswapContractIds[asset.code] = asset.contract; // Override or add contract from API
+          }
+          if (asset.issuer && asset.issuer.startsWith('G')) {
+            classicAssetIssuers[asset.code] = asset.issuer;
+          }
+        });
+        console.log('Updated soroswapContractIds from API (merged with knownSorobanContracts):', soroswapContractIds);
+        console.log('Updated classicAssetIssuers from API:', classicAssetIssuers);
+        return true;
+      } else {
+        assetListResponseEl.textContent = JSON.stringify({ error: 'No assets array found in response or invalid format.', details: assetListData }, null, 2);
+        return false;
+      }
+    } catch (error: unknown) {
+      console.error(`Error fetching /asset-list (${assetListName}):`, error);
+      const errorMessage = error instanceof Error ? error.message : `Unknown error fetching /asset-list data for ${assetListName}.`;
+      assetListResponseEl.textContent = JSON.stringify({ error: errorMessage, details: error }, null, 2);
+      return false;
+    }
+  }
+
+  fetchAssetListButton?.addEventListener('click', async () => {
+    const assetListName = assetListNameSelect.value; // No need for .trim() with select
+    await fetchAndProcessAssetList(assetListName);
+  });
+
+  // On page load, fetch a default asset list to populate dropdowns
+  document.addEventListener('DOMContentLoaded', async () => {
+    // Attempt to fetch the default asset list from the API first.
+    // "SOROSWAP" can be changed to another default list if needed.
+    const initialLoadSuccess = await fetchAndProcessAssetList('SOROSWAP');
+
+    if (!initialLoadSuccess) {
+        console.warn('Failed to load initial SOROSWAP asset list from API. Populating dropdowns with local assets.json as fallback.');
+        // Use assetCode for code, homeDomain for domain, and iconUrl for icon from assets.json structure
+        const localAssetsForDropdown = assetsData.map(asset => ({
+          code: asset.assetCode,
+          name: asset.assetCode, // Or a more descriptive name if available
+          domain: asset.homeDomain, // Map homeDomain to domain
+          icon: asset.iconUrl, // Map iconUrl to icon
+          issuer: asset.homeDomain && asset.homeDomain.startsWith('G') ? asset.homeDomain : undefined,
+          contract: asset.homeDomain && !asset.homeDomain.startsWith('G') ? asset.homeDomain : undefined,
+        }));
+        updateAssetDropdowns(localAssetsForDropdown);
+
+        // Re-initialize contract/issuer maps from local assetsData as API fetch failed
+        soroswapContractIds = assetsData.reduce((acc: Record<string, string>, asset) => {
+          if (knownSorobanContracts[asset.assetCode]) {
+            acc[asset.assetCode] = knownSorobanContracts[asset.assetCode];
+          } else if (asset.homeDomain && !asset.homeDomain.startsWith('G')) {
+            acc[asset.assetCode] = asset.homeDomain;
+          }
+          return acc;
+        }, { ...knownSorobanContracts });
+
+        classicAssetIssuers = assetsData.reduce((acc: Record<string, string>, asset) => {
+          if (asset.assetCode !== 'XLM' && asset.homeDomain && asset.homeDomain.startsWith('G')) {
+            acc[asset.assetCode] = asset.homeDomain;
+          }
+          return acc;
+        }, {});
+    }
+    // Note: fetchAndProcessAssetList (if successful) or the fallback logic above
+    // will call updateAssetDropdowns, which in turn can set default selections.
+
+    // Initialize default amount only after dropdowns are populated and selections are potentially set.
+    // This ensures any default selection logic in updateAssetDropdowns runs first.
+    if (sourceAssetInput.value && !amountInput.value) {
+        amountInput.value = '100';
+    }
+    
+    // initSDKs includes Soroswap API login attempt, which is fine to do after assets are loaded.
+    await initSDKs();
+  });
   
 </script>
+
+</script>
+
+</rewritten_file>
+</rewritten_file>

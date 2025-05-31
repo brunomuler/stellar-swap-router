@@ -1,78 +1,79 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import "../styles/global.css";
 ---
 
 <Layout>
-  <main class="container mx-auto p-6">
-    <h1 class="text-3xl font-bold">New Page</h1>
-    <p class="mt-4">This is a new page created in your Astro project.</p>
+  <main class="container mx-auto p-6 max-w-2xl">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
+      <h1 class="text-4xl font-bold text-gray-900 dark:text-white text-center">
+        Stellar Wallet Connection
+      </h1>
+      
+      <p class="mt-4 text-gray-600 dark:text-gray-300 text-center">
+        Connect your Stellar wallet to get started
+      </p>
+
+      <div class="mt-8 flex flex-col items-center gap-4">
+        <div id="containerDiv"></div>
+        
+        <div id="walletInfo" class="hidden w-full">
+          <div class="mt-6 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+            <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Connected Wallet</h2>
+            <p id="walletAddress" class="mt-2 font-mono text-sm text-gray-600 dark:text-gray-300 break-all"></p>
+          </div>
+        </div>
+
+        <div id="loadingState" class="hidden mt-4">
+          <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 dark:border-white"></div>
+        </div>
+      </div>
+    </div>
   </main>
 </Layout>
+
 <script>
-  import {
-  Router,
-  Token,
-  CurrencyAmount,
-  TradeType,
-  Networks,
-} from "soroswap-router-sdk";
+if (typeof window !== 'undefined') {
+  window.global = globalThis;
+}
 
-const XLM_ADDRESS = "CAS3J7GYLGXMF6TDJBBYYSE3HQ6BBSMLNUQ34T6TZMYMW2EVH34XOWMA";
-const USDC_ADDRESS = "CCW67TSZV3SSS2HXMBQ5JFGCKJNXKZM7UQUWUZPUTHXSTZLEO7SJMI75";
-const AQUA_ADDRESS = "CAUIKL3IYGMERDRUN6YSCLWVAKIFG5Q4YJHUKM4S4NJZQIA3BAS6OJPK";
+import {
+  StellarWalletsKit,
+  WalletNetwork,
+  allowAllModules,
+  XBULL_ID
+} from '@creit.tech/stellar-wallets-kit';
 
-const XLM_TOKEN = new Token(
-  Networks.PUBLIC,
-  XLM_ADDRESS,
-  7,
-  "XLM",
-  "Stellar Lumens"
-);
-
-const USDC_TOKEN = new Token(
-  Networks.PUBLIC,
-  USDC_ADDRESS,
-  7,
-  "USDC",
-  "USD Coin"
-);
-
-const AQUA_TOKEN = new Token(
-  Networks.PUBLIC,
-  AQUA_ADDRESS,
-  7,
-  "AQUA",
-  "AQUA tokens"    
-);
-
-console.log(XLM_TOKEN);
-console.log(USDC_TOKEN);
-console.log(AQUA_TOKEN);
-
-const amount = 1;
-
-const router = new Router({
-  pairsCacheInSeconds: 20, // pairs cache duration
-//   protocols: [Protocol.SOROSWAP], // protocols to be used
-  network: Networks.PUBLIC, // network to be used
+const kit = new StellarWalletsKit({
+  network: WalletNetwork.TESTNET,
+  selectedWalletId: XBULL_ID,
+  modules: allowAllModules(),
 });
 
-const currencyAmount = CurrencyAmount.fromRawAmount(AQUA_TOKEN, amount);
-const quoteCurrency = USDC_TOKEN;
+async function setupWallet() {
+  const container = document.querySelector('#containerDiv') as HTMLElement;
+  const walletInfo = document.querySelector('#walletInfo') as HTMLElement;
+  const walletAddress = document.querySelector('#walletAddress') as HTMLElement;
+  const loadingState = document.querySelector('#loadingState') as HTMLElement;
 
-try {
-  const route = await router.route(
-    currencyAmount,
-    quoteCurrency,
-    TradeType.EXACT_INPUT
-  );
-
-  if (route) {
-    console.log(route.trade.path);
-  } else {
-    console.error("No route found for:", currencyAmount, "to", quoteCurrency);
+  if (container) {
+    await kit.createButton({
+      container,
+      onConnect: (result: { address: string }) => {
+        console.log('Connected wallet address:', result.address);
+        loadingState.classList.add('hidden');
+        walletInfo.classList.remove('hidden');
+        walletAddress.textContent = result.address;
+      },
+      onDisconnect: () => {
+        console.log('Wallet disconnected');
+        walletInfo.classList.add('hidden');
+        walletAddress.textContent = '';
+      }
+    });
   }
-} catch (error) {
-  console.error("Error fetching route:", error);
 }
+
+// Initialize the wallet connection
+setupWallet().catch(err => console.error('Failed to setup wallet:', err));
 </script>
