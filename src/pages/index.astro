@@ -5,6 +5,11 @@ import assetsData from '../assets/assets.json'; // Import the assets JSON
 
 // const assets = assetsData.map(asset => asset.assetCode); // Extract asset codes - Will be replaced by dynamic loading
 
+// --- Stellar Wallets Kit ---
+// Ensure this import path is correct based on your project structure and how the package is installed.
+import { StellarWalletsKit, WalletNetwork, allowAllModules } from '@creit.tech/stellar-wallets-kit';
+// --- End Stellar Wallets Kit ---
+
 ---
 
 <Layout>
@@ -26,6 +31,11 @@ import assetsData from '../assets/assets.json'; // Import the assets JSON
             </button>
           </div>
           
+          <!-- Wallet Connect Button Container -->
+          <div id="wallet-button-container" class="mb-4"></div>
+          <p id="connected-wallet-address" class="text-sm text-gray-600 mb-4"></p>
+          <!-- End Wallet Connect Button Container -->
+
           <form id="swapForm" class="space-y-4 max-w-md">
             <!-- Source Asset -->
             <div>
@@ -1044,16 +1054,18 @@ async function estimateSwapForAssets(sourceAsset: string, destAsset: string, amo
       }
 
       let soroswapRate = 0;
-      if (soroswapResult && !soroswapResult.error && 
-          typeof soroswapResult.inputAmount === 'string' && Number(soroswapResult.inputAmount) > 0 &&
-          typeof soroswapResult.outputAmount === 'string' && Number(soroswapResult.outputAmount) >= 0) {
+      // Check for error property first, then for success properties
+      if (soroswapResult && !('error' in soroswapResult) && 
+          soroswapResult.inputAmount && typeof soroswapResult.inputAmount === 'string' && Number(soroswapResult.inputAmount) > 0 &&
+          soroswapResult.outputAmount && typeof soroswapResult.outputAmount === 'string' && Number(soroswapResult.outputAmount) >= 0) {
         soroswapRate = Number(soroswapResult.outputAmount) / Number(soroswapResult.inputAmount);
       }
 
       let brokerRate = 0;
-      if (stellarBrokerResult && !stellarBrokerResult.error && 
-          typeof stellarBrokerResult.sellingAmount === 'string' && Number(stellarBrokerResult.sellingAmount) > 0 &&
-          typeof stellarBrokerResult.estimatedBuyingAmount === 'string' && Number(stellarBrokerResult.estimatedBuyingAmount) >= 0) {
+      // Check for error property first, then for success properties
+      if (stellarBrokerResult && !('error' in stellarBrokerResult) && 
+          stellarBrokerResult.sellingAmount && typeof stellarBrokerResult.sellingAmount === 'string' && Number(stellarBrokerResult.sellingAmount) > 0 &&
+          stellarBrokerResult.estimatedBuyingAmount && typeof stellarBrokerResult.estimatedBuyingAmount === 'string' && Number(stellarBrokerResult.estimatedBuyingAmount) >= 0) {
         brokerRate = Number(stellarBrokerResult.estimatedBuyingAmount) / Number(stellarBrokerResult.sellingAmount);
       }
 
@@ -1485,6 +1497,72 @@ async function estimateSwapForAssets(sourceAsset: string, destAsset: string, amo
     await fetchAndProcessAssetList(assetListName);
   });
 
+  // --- Stellar Wallets Kit ---
+  // Import moved inside the script tag for Astro
+  let StellarWalletsKit: any, WalletNetwork: any, allowAllModules: any;
+
+  let stellarKit: any; // Changed from StellarWalletsKit | undefined for simplicity with dynamic import
+  let userPublicKey: string | null = null;
+  const walletButtonContainer = document.getElementById('wallet-button-container');
+  const connectedWalletAddressEl = document.getElementById('connected-wallet-address');
+
+  async function initializeWalletKit() {
+    if (!StellarWalletsKit) { // Check if already imported
+      try {
+        const kitModule = await import('@creit.tech/stellar-wallets-kit');
+        StellarWalletsKit = kitModule.StellarWalletsKit;
+        WalletNetwork = kitModule.WalletNetwork;
+        allowAllModules = kitModule.allowAllModules;
+      } catch (e) {
+        console.error("Failed to load @creit.tech/stellar-wallets-kit", e);
+        if (walletButtonContainer) walletButtonContainer.textContent = 'Failed to load wallet kit.';
+        return;
+      }
+    }
+
+    if (!walletButtonContainer || !connectedWalletAddressEl) {
+      console.error('Wallet button container or address display element not found.');
+      return;
+    }
+
+    stellarKit = new StellarWalletsKit({
+      network: WalletNetwork.TESTNET, // Or WalletNetwork.PUBLIC for mainnet
+      modules: allowAllModules(), // Or specify modules: [new FreighterModule(), new xBullModule()]
+    });
+
+    try {
+      await stellarKit.createButton({
+        container: walletButtonContainer,
+        onConnect: ({ address }: { address: string }) => { // Added type for address
+          userPublicKey = address;
+          console.log('Wallet connected:', userPublicKey);
+          if (userPublicKey && connectedWalletAddressEl) { // Added null check for userPublicKey and connectedWalletAddressEl
+            connectedWalletAddressEl.textContent = `Connected: ${userPublicKey.substring(0, 6)}...${userPublicKey.substring(userPublicKey.length - 4)}`;
+          }
+          // You might want to trigger other actions here, like fetching account balances
+        },
+        onDisconnect: () => {
+          userPublicKey = null;
+          console.log('Wallet disconnected');
+          if (connectedWalletAddressEl) { // Added null check
+            connectedWalletAddressEl.textContent = 'Wallet disconnected.';
+          }
+          // Clear any user-specific data
+        },
+        // Optional: horizonUrl for balance display, buttonText, etc.
+        // horizonUrl: 'https://horizon-testnet.stellar.org',
+        // buttonText: 'Connect Wallet',
+      });
+      console.log('Stellar Wallets Kit button created.');
+    } catch (error) {
+      console.error('Error creating Stellar Wallets Kit button:', error);
+      if (walletButtonContainer) { // Added null check
+          walletButtonContainer.textContent = 'Error initializing wallet button.';
+      }
+    }
+  }
+  // --- End Stellar Wallets Kit ---
+
   // On page load, fetch a default asset list to populate dropdowns
   document.addEventListener('DOMContentLoaded', async () => {
     // Attempt to fetch the default asset list from the API first.
@@ -1532,11 +1610,11 @@ async function estimateSwapForAssets(sourceAsset: string, destAsset: string, amo
     
     // initSDKs includes Soroswap API login attempt, which is fine to do after assets are loaded.
     await initSDKs();
+    await initializeWalletKit(); // Initialize Stellar Wallets Kit
   });
   
 </script>
 
 </script>
 
-</rewritten_file>
 </rewritten_file>
